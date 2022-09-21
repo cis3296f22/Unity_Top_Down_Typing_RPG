@@ -4961,36 +4961,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
---- !u!1 &5135944866438378277 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1757131329915342199, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
-  m_PrefabInstance: {fileID: 5135944866438378276}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5135944866438378278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5135944866438378277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f656e65f354c944c95ed67842268833, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 1
-  collisionOffset: 0.05
-  movementFilter:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 0
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
