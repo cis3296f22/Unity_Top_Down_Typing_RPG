@@ -59,17 +59,10 @@ Brian has been playing games his whole life. He started out with consoles like t
 - Added a functional experience bar
 
 # How to run
-Provide here instructions on how to use your application.   
-- Download the latest binary from the Release section on the right on GitHub.  
-- On the command line uncompress using
-```
-tar -xzf  
-```
-- On the command line run with
-```
-./hello
-```
-- You will see Hello World! on your terminal. 
+- Go to the latest release
+- Download the Typing.rpg.binary.zip
+- Extract the contents inside
+- Run the TypingRPG.exe application
 
 # How to contribute
 Follow this project board to know the latest status of the project: [https://github.com/orgs/cis3296f22/projects/99]([https://github.com/orgs/cis3296f22/projects/99])  
