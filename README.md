@@ -24,6 +24,14 @@ Tiffany has been working as a secretary for a corporation for five years. She ha
 
 Tiffany decided to train her typing skill one more time. This time she has to find a technique that does not take many times to accompleted. She decided to use her entertainment time of day to train her skill. Her  brother, who loves to type, suggested that she play Unity Top Down Typing RPG. This game helps her relax and learn at the same time. 
 
+**Dameon, a middle schooler learning to type for school**
+Dameon, a grade 7 middle schooler, who is taking a typing class at school. He is struggling in class to keep up and finds the take home practice he has been given to be boring so he hasn't been practicing. Because of this his parents were looking for an alternative practice method so he could improve his grades in class, the alternative has to be both exciting and educational which is where Unity top down typing rpg comes in. Dameon is given the game as a gift and is excited to play the new rpg. Dameon might lose interest if he realized it was an educational game. Dameon loves the rpgs he played before and grew up playing Nintendo DS games like Paper mario. 
+
+**Brian, a high school student who is experienced with games**
+
+Brian has been playing games his whole life. He started out with consoles like the PS3 and XBox 360 and has since moved on to gaming on his personal computer. He knows exactly the types of games he likes to play and the way he plays them. He’s built his own computer to suit his specific needs. He has spent a lot of time on his computer and as a result, his typing skill is unorthodox compared to how most people learn to type. However, his experience typing allows him to type extremely fast and accurately. Brian is super into indie games and so he scours the internet to look for games that suit his specific tastes. While browsing, he discovers a new game with a unique mechanic that he hasn’t seen before. Interested, he takes a look at the reviews and decides to give it a try.
+
+
 # User Features
 
 - Implemented an in-game settings option
@@ -64,7 +72,11 @@ tar -xzf
 - You will see Hello World! on your terminal. 
 
 # How to contribute
-Follow this project board to know the latest status of the project: [http://...]([http://...])  
+Follow this project board to know the latest status of the project: [https://github.com/orgs/cis3296f22/projects/99]([https://github.com/orgs/cis3296f22/projects/99])  
+- Download the latest version of Unity and Unity hub
+- Clone this repo on your local repo
+- Open that repo folder in unity
+- You can now change things and commit/push those changes into a new branch!
 
 ### How to build
 - Download the latest version of Unity and Unity Hub
