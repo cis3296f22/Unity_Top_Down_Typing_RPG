@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 1f;
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
+    public EnemySelect enemySelect;
 
     Vector2 movementInput;
     Rigidbody2D rb;
@@ -49,12 +50,14 @@ public class PlayerController : MonoBehaviour
 
     private bool TryMove(Vector2 direction) {
         // Check for potential collisions
+        enemySelect.SetSelect(false);
         int count = rb.Cast(
                 direction, 
                 movementFilter,
                 castCollisions,
                 moveSpeed * Time.fixedDeltaTime + collisionOffset
             );
+        enemySelect.SetSelect(true);
         if(count == 0) {
             rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
             return true;
@@ -66,5 +69,10 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue movementValue)
     {
         movementInput = movementValue.Get<Vector2>();
+    }
+
+     void OnFire() {
+        print("Fire pressed");
+        enemySelect.SetSelect(true);
     }
 }
