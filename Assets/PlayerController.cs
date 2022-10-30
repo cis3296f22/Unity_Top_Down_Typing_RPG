@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
         movementInput = movementValue.Get<Vector2>();
     }
 
-     void OnFire() {
+    void OnFire() {
         print("Fire pressed");
         enemySelect.SetSelect(true);
     }

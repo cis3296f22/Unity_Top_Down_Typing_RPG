@@ -9,11 +9,10 @@ public class EnemySelect : MonoBehaviour
 
 
     public void SetSelect(bool flag) {
-        print(flag);
         enemySelect.enabled = flag;
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
+    void OnTriggerEnter2D(Collider2D other) {
         print("Touch enemy");
         if (other.tag == "Enemy") {
             Enemy enemy = other.GetComponent<Enemy>();
