@@ -13,12 +13,14 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     Animator animator;
+    SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -36,6 +38,12 @@ public class PlayerController : MonoBehaviour
         }
         else {
             animator.SetBool("isMoving", false);
+        }
+        // flip player based on direction
+        if(movementInput.x < 0) {
+            spriteRenderer.flipX = true;
+        } else if (movementInput.x > 0) {
+            spriteRenderer.flipX = false;
         }
     }
 
