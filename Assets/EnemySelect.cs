@@ -18,6 +18,11 @@ public class EnemySelect : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null) {
                 print("Select this enemy");
+                string value = enemy.ShowString();
+                // show string
+                print(value);
+                string input = Input.inputString;
+                print(input);
             }
 
         }
