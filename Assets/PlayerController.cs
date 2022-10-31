@@ -8,15 +8,20 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 1f;
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
+    public EnemySelect enemySelect;
 
     Vector2 movementInput;
     Rigidbody2D rb;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+    Animator animator;
+    SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -30,17 +35,29 @@ public class PlayerController : MonoBehaviour
                     success = TryMove(new Vector2(movementInput.y, 0));
                 }
             }
+            animator.SetBool("isMoving", success);
+        }
+        else {
+            animator.SetBool("isMoving", false);
+        }
+        // flip player based on direction
+        if(movementInput.x < 0) {
+            spriteRenderer.flipX = true;
+        } else if (movementInput.x > 0) {
+            spriteRenderer.flipX = false;
         }
     }
 
     private bool TryMove(Vector2 direction) {
         // Check for potential collisions
+        enemySelect.SetSelect(false);
         int count = rb.Cast(
                 direction, 
                 movementFilter,
                 castCollisions,
                 moveSpeed * Time.fixedDeltaTime + collisionOffset
             );
+        enemySelect.SetSelect(true);
         if(count == 0) {
             rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
             return true;
@@ -52,5 +69,10 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue movementValue)
     {
         movementInput = movementValue.Get<Vector2>();
+    }
+
+    void OnFire() {
+        print("Fire pressed");
+        enemySelect.SetSelect(true);
     }
 }
