@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     Animator animator;
     SpriteRenderer spriteRenderer;
+    bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -26,26 +27,29 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // If movement input is not 0, try to move
-        if(movementInput != Vector2.zero) {
-            bool success = TryMove(movementInput);
-            if (!success) {
-                success = TryMove(new Vector2(movementInput.x, 0));
+        if (canMove) {
+            // If movement input is not 0, try to move
+            if(movementInput != Vector2.zero) {
+                bool success = TryMove(movementInput);
                 if (!success) {
-                    success = TryMove(new Vector2(movementInput.y, 0));
+                    success = TryMove(new Vector2(movementInput.x, 0));
+                    if (!success) {
+                        success = TryMove(new Vector2(movementInput.y, 0));
+                    }
                 }
+                animator.SetBool("isMoving", success);
             }
-            animator.SetBool("isMoving", success);
+            else {
+                animator.SetBool("isMoving", false);
+            }
+            // flip player based on direction
+            if(movementInput.x < 0) {
+                spriteRenderer.flipX = true;
+            } else if (movementInput.x > 0) {
+                spriteRenderer.flipX = false;
+            }
         }
-        else {
-            animator.SetBool("isMoving", false);
-        }
-        // flip player based on direction
-        if(movementInput.x < 0) {
-            spriteRenderer.flipX = true;
-        } else if (movementInput.x > 0) {
-            spriteRenderer.flipX = false;
-        }
+        
     }
 
     private bool TryMove(Vector2 direction) {
@@ -71,8 +75,21 @@ public class PlayerController : MonoBehaviour
         movementInput = movementValue.Get<Vector2>();
     }
 
-    void OnFire() {
-        print("Fire pressed");
-        enemySelect.SetSelect(true);
+
+    void OnTriggerEnter2D(Collider2D other) {
+        print("Touch enemy in player");
+        if (other.tag == "Enemy") {
+            Enemy enemy = other.GetComponent<Enemy>();
+            if (enemy != null) {
+                // lock player move
+                canMove = false;
+                // stop animation moving
+                animator.SetBool("isMoving", false);
+                // swork attach
+                animator.SetTrigger("swordAttach");
+                
+            }
+
+        }
     }
 }
