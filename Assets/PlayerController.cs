@@ -75,4 +75,15 @@ public class PlayerController : MonoBehaviour
         print("Fire pressed");
         enemySelect.SetSelect(true);
     }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        print("Touch enemy in player");
+        if (other.tag == "Enemy") {
+            Enemy enemy = other.GetComponent<Enemy>();
+            if (enemy != null) {
+                
+            }
+
+        }
+    }
 }
