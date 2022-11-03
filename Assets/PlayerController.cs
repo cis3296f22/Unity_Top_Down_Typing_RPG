@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
     public EnemySelect enemySelect;
+    public Animator transition;
+    
 
     Vector2 movementInput;
     Rigidbody2D rb;
@@ -16,6 +19,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     SpriteRenderer spriteRenderer;
     bool canMove = true;
+    public float transitionTime = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -76,7 +80,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void OnTriggerEnter2D(Collider2D other) {
+    IEnumerator OnTriggerEnter2D(Collider2D other) {
         print("Touch enemy in player");
         if (other.tag == "Enemy") {
             Enemy enemy = other.GetComponent<Enemy>();
@@ -87,9 +91,27 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isMoving", false);
                 // swork attach
                 animator.SetTrigger("swordAttach");
-                
+                //Wait attach finished
+                yield return new WaitForSeconds(transitionTime);
+                // switch scene
+                SwitchScene();
             }
 
         }
+    }
+    public void SwitchScene()
+    {
+        StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex + 1));
+        
+    }
+
+    IEnumerator LoadScene(int SceneIndex)
+    {
+        //play animation
+        //transition.SetTrigger("Start");
+        //wait
+        yield return new WaitForSeconds(transitionTime);
+        //load scene
+        SceneManager.LoadScene(SceneIndex);
     }
 }
