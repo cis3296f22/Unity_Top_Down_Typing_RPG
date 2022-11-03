@@ -91,8 +91,9 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isMoving", false);
                 // swork attach
                 animator.SetTrigger("swordAttach");
-                // switch scene
+                //Wait attach finished
                 yield return new WaitForSeconds(transitionTime);
+                // switch scene
                 SwitchScene();
             }
 
@@ -107,7 +108,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator LoadScene(int SceneIndex)
     {
         //play animation
-        transition.SetTrigger("Start");
+        //transition.SetTrigger("Start");
         //wait
         yield return new WaitForSeconds(transitionTime);
         //load scene
