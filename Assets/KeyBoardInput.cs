@@ -28,7 +28,7 @@ public class KeyBoardInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (playing = true) {
+		if (playing == true) {
 			if (Input.GetKeyDown(KeyCode.Backspace)) {
 				playerInput.Length --;
 			}
@@ -45,8 +45,10 @@ public class KeyBoardInput : MonoBehaviour
     }
 
 	public void Begin() {
-		playing = true;
-		sentence = WordGenerator.GenerateSentence();
+		if (!playing) {
+			sentence = WordGenerator.GenerateSentence();
+			playing = true;
+		}
 	}
 
 	private void CompareInput() {
