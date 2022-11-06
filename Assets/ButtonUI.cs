@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class ButtonUI : MonoBehaviour
 {
+
+	public KeyBoardInput keyboardInput;
     //Creating fight scene button
     public void RunButton()
     {
@@ -14,6 +16,7 @@ public class ButtonUI : MonoBehaviour
     public void FightButton()
     {
         print("Start To fight with the enemy");
+		keyboardInput.Begin();
     }
 
     public void ItemButton()

@@ -12,7 +12,8 @@ public class KeyBoardInput : MonoBehaviour
     public TMP_Text text;
 
     private StringBuilder playerInput = new StringBuilder("");
-	private string sentence = "This is the words that users have to type. This is not a realy long word.";
+	private string sentence = "";
+	private bool playing = false;
 	private int[] compare;
 	private string CORRECT_COLOR_OPEN_TAG = "<color=blue>";
 	private string INCORRECT_COLOR_OPEN_TAG = "<color=red>";
@@ -27,18 +28,26 @@ public class KeyBoardInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (Input.GetKeyDown(KeyCode.Backspace)) {
-			playerInput.Length --;
-		}
-        else if (Input.anyKeyDown) {
-            playerInput.Append(Input.inputString);
-            Debug.Log(playerInput.ToString());
+		if (playing = true) {
+			if (Input.GetKeyDown(KeyCode.Backspace)) {
+				playerInput.Length --;
+			}
+        	else if (Input.anyKeyDown) {
+            	playerInput.Append(Input.inputString);
+            	Debug.Log(playerInput.ToString());
             
+			}
+			CompareInput();
+			ShowText();
 		}
-		CompareInput();
-		ShowText();
+		
         
     }
+
+	public void Begin() {
+		playing = true;
+		sentence = WordGenerator.GenerateSentence();
+	}
 
 	private void CompareInput() {
 		int min = Math.Min(sentence.Length, playerInput.Length);
