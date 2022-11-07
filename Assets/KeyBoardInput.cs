@@ -10,7 +10,6 @@ using System;
 public class KeyBoardInput : MonoBehaviour
 {
     public TMP_Text text;
-	public GameObject battleCanvas;
 
     private StringBuilder playerInput = new StringBuilder("");
 	private string sentence = "";
@@ -49,8 +48,6 @@ public class KeyBoardInput : MonoBehaviour
 		if (!playing) {
 			sentence = WordGenerator.GenerateSentence();
 			playing = true;
-			// hide battle canvas
-			battleCanvas.SetActive(false);
 		}
 	}
 
