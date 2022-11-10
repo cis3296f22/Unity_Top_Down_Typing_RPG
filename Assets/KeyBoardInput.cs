@@ -22,7 +22,7 @@ public class KeyBoardInput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+		WordGenerator.GenerateDict();
     }
 
     // Update is called once per frame
@@ -47,6 +47,7 @@ public class KeyBoardInput : MonoBehaviour
 	public void Begin() {
 		if (!playing) {
 			sentence = WordGenerator.GenerateSentence();
+
 			playing = true;
 		}
 	}
