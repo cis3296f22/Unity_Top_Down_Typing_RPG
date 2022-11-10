@@ -10,6 +10,7 @@ using System;
 public class KeyBoardInput : MonoBehaviour
 {
     public TMP_Text text;
+	public Timer timer;
 
     private StringBuilder playerInput = new StringBuilder("");
 	private string sentence = "";
@@ -48,6 +49,7 @@ public class KeyBoardInput : MonoBehaviour
 		if (!playing) {
 			sentence = WordGenerator.GenerateSentence();
 			playing = true;
+			timer.Begin();
 		}
 	}
 
