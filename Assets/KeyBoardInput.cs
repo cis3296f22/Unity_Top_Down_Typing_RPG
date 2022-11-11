@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.Text;
 using TMPro;
 using System;
-
+using UnityEngine.SceneManagement;
 
 public class KeyBoardInput : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class KeyBoardInput : MonoBehaviour
     private StringBuilder playerInput = new StringBuilder("");
 	private string sentence = "";
 	private bool playing = false;
+	public bool finished = false;
 	private int[] compare;
 	private string CORRECT_COLOR_OPEN_TAG = "<color=green>";
 	private string INCORRECT_COLOR_OPEN_TAG = "<color=red>";
@@ -49,6 +50,11 @@ public class KeyBoardInput : MonoBehaviour
 			CompareInput();
 			ShowText();
 			ShowTime();
+			if (timeRemaining == 0)
+			{
+				playing = false;
+				finished = true;
+			}
 		}
 		
         
@@ -79,7 +85,7 @@ public class KeyBoardInput : MonoBehaviour
 		}
 	}
 
-	private double AccuracyCalculate()
+	public double AccuracyCalculate()
 	{
 		double result = 0.0;
 		 result= ((correctWord *1.0)/ totalWord)*100;
@@ -126,5 +132,12 @@ public class KeyBoardInput : MonoBehaviour
 			// }
 		}
 		TimerText.text = sb.ToString();
+	}
+
+	public float Calculate()
+	{
+		double accuracy = AccuracyCalculate();
+		finished = false;
+		return (float)accuracy;
 	}
 }
