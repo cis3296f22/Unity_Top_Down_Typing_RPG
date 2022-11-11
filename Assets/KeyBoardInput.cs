@@ -15,10 +15,16 @@ public class KeyBoardInput : MonoBehaviour
 	private string sentence = "";
 	private bool playing = false;
 	private int[] compare;
-	private string CORRECT_COLOR_OPEN_TAG = "<color=blue>";
+	private string CORRECT_COLOR_OPEN_TAG = "<color=green>";
 	private string INCORRECT_COLOR_OPEN_TAG = "<color=red>";
 	private string NOT_TYPING_COLOR_TAG = "<color=grey>";
 	private string COLOR_END_TAG = "</color>";
+	
+	private float totalWord;
+	private float correctWord;
+	private float accuracyWord;
+
+	private int size;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +42,7 @@ public class KeyBoardInput : MonoBehaviour
             	playerInput.Append(Input.inputString);
             	Debug.Log(playerInput.ToString());
             
-			}
+			}	
 			CompareInput();
 			ShowText();
 		}
@@ -47,8 +53,8 @@ public class KeyBoardInput : MonoBehaviour
 	public void Begin() {
 		if (!playing) {
 			sentence = WordGenerator.GenerateSentence();
-
 			playing = true;
+			size = sentence.Length;
 		}
 	}
 
@@ -56,15 +62,25 @@ public class KeyBoardInput : MonoBehaviour
 		int min = Math.Min(sentence.Length, playerInput.Length);
 		int max = Math.Max(sentence.Length, playerInput.Length);
 		compare = new int[max];
-		for (int i = 0; i < min;i++) {
+		for (int i = 0; i < min;i++)
+		{
+			totalWord++;
 			if (sentence[i] == playerInput[i]) {
 				compare[i] = 1;
+				correctWord++;
 			}
 			else {
 				compare[i] = -1;
 			}
 		}
-		
+	}
+
+	private double AccuracyCalculate()
+	{
+		double result = 0.0;
+		 result= ((correctWord *1.0)/ totalWord)*100;
+		 print(result);
+		 return result;
 	}
 
 	private void ShowText() {
