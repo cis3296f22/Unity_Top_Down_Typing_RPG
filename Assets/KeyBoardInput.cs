@@ -10,6 +10,8 @@ using System;
 public class KeyBoardInput : MonoBehaviour
 {
     public TMP_Text text;
+    public TMP_Text TimerText;
+    public float timeRemaining = 10;
 
     private StringBuilder playerInput = new StringBuilder("");
 	private string sentence = "";
@@ -19,6 +21,7 @@ public class KeyBoardInput : MonoBehaviour
 	private string INCORRECT_COLOR_OPEN_TAG = "<color=red>";
 	private string NOT_TYPING_COLOR_TAG = "<color=grey>";
 	private string COLOR_END_TAG = "</color>";
+	private string COLOR_TIMER_TAG = "<color=black>";
 	
 	private float totalWord;
 	private float correctWord;
@@ -45,6 +48,7 @@ public class KeyBoardInput : MonoBehaviour
 			}	
 			CompareInput();
 			ShowText();
+			ShowTime();
 		}
 		
         
@@ -103,5 +107,24 @@ public class KeyBoardInput : MonoBehaviour
 			}
 		}
 		text.text = sb.ToString();
+	}
+
+	public void ShowTime()
+	{
+		StringBuilder sb = new StringBuilder();
+		if (timeRemaining > 0)
+		{
+			timeRemaining -= Time.deltaTime;
+			float seconds = Mathf.FloorToInt(timeRemaining % 60);
+			sb.Append(COLOR_TIMER_TAG);	
+			sb.Append(seconds);
+			sb.Append(COLOR_END_TAG);
+
+			// if (timeRemaining == 0)
+			// {
+			// 	playing = false;
+			// }
+		}
+		TimerText.text = sb.ToString();
 	}
 }
