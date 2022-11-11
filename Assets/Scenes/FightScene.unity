@@ -2209,8 +2209,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217b7fc0516d95d49af774a974c7a845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 203066905}
   healthAmount: 100
+  keyBoardInput: {fileID: 0}
 --- !u!1 &1770436456
 GameObject:
   m_ObjectHideFlags: 0
@@ -2662,6 +2663,7 @@ MonoBehaviour:
   text: {fileID: 622463062}
   TimerText: {fileID: 2143834608}
   timeRemaining: 10
+  finished: 0
 --- !u!1001 &2135560032
 PrefabInstance:
   m_ObjectHideFlags: 0
