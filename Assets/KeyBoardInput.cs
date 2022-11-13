@@ -24,9 +24,9 @@ public class KeyBoardInput : MonoBehaviour
 	private string COLOR_END_TAG = "</color>";
 	private string COLOR_TIMER_TAG = "<color=black>";
 	
-	private float totalWord;
-	private float correctWord;
-	private float accuracyWord;
+	private float totalChar;
+	private float correctChar;
+	private float accuracy;
 
 	private int size;
     // Start is called before the first frame update
@@ -50,10 +50,11 @@ public class KeyBoardInput : MonoBehaviour
 			CompareInput();
 			ShowText();
 			ShowTime();
-			if (timeRemaining == 0)
+			if (timeRemaining <= 0)
 			{
 				playing = false;
 				finished = true;
+				Debug.Log("Correct: " + accuracy);
 			}
 		}
 		
@@ -72,23 +73,27 @@ public class KeyBoardInput : MonoBehaviour
 		int min = Math.Min(sentence.Length, playerInput.Length);
 		int max = Math.Max(sentence.Length, playerInput.Length);
 		compare = new int[max];
+		totalChar = max;
+		correctChar = 0;
 		for (int i = 0; i < min;i++)
 		{
-			totalWord++;
 			if (sentence[i] == playerInput[i]) {
 				compare[i] = 1;
-				correctWord++;
+				correctChar++;
 			}
 			else {
 				compare[i] = -1;
 			}
 		}
+
+		accuracy = correctChar / totalChar;
+
 	}
 
 	public double AccuracyCalculate()
 	{
 		double result = 0.0;
-		 result= ((correctWord *1.0)/ totalWord)*100;
+		 result= ((correctChar *1.0)/ totalChar)*100;
 		 print(result);
 		 return result;
 	}
@@ -125,13 +130,13 @@ public class KeyBoardInput : MonoBehaviour
 			sb.Append(COLOR_TIMER_TAG);	
 			sb.Append(seconds);
 			sb.Append(COLOR_END_TAG);
-
+			TimerText.text = sb.ToString();
 			// if (timeRemaining == 0)
 			// {
 			// 	playing = false;
 			// }
 		}
-		TimerText.text = sb.ToString();
+		
 	}
 
 	public float Calculate()
