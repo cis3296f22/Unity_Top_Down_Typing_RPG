@@ -15,6 +15,7 @@ public class KeyBoardInput : MonoBehaviour
     public HealthManager enemyHealthManager;
     public HealthManager playerHealthManager;
     public ButtonUI buttonUI;
+    public ParticleSystem particalSystem;
 
     private StringBuilder playerInput = new StringBuilder("");
 	private string sentence = "";
@@ -42,7 +43,12 @@ public class KeyBoardInput : MonoBehaviour
     {
 		if (playing == true) {
 			if (Input.GetKeyDown(KeyCode.Backspace)) {
-				playerInput.Length --;
+				// only remove when the player input something
+				if (playerInput.Length > 0)
+				{
+					playerInput.Length --;
+				}
+				
 			}
         	else if (Input.anyKeyDown) {
             	playerInput.Append(Input.inputString);
@@ -61,10 +67,8 @@ public class KeyBoardInput : MonoBehaviour
 				if (enemyHealthManager.healthAmount > 0 && playerHealthManager.healthAmount > 0)
 				{
 					// reset all the status of the game
-					sentence = "";
-					playerInput = new StringBuilder("");
-					ShowText();
-					timeRemaining = 10;
+					
+					Reset();
 					
 					buttonUI.show();
 				}
@@ -74,6 +78,7 @@ public class KeyBoardInput : MonoBehaviour
 					if (playerHealthManager.healthAmount > enemyHealthManager.healthAmount)
 					{
 						Debug.Log("Player win");
+						
 					}
 					else
 					{
@@ -92,6 +97,15 @@ public class KeyBoardInput : MonoBehaviour
 			playing = true;
 			size = sentence.Length;
 		}
+	}
+
+	public void Reset()
+	{
+		sentence = "";
+		playerInput = new StringBuilder("");
+		compare = new int[0];
+		ShowText();
+		timeRemaining = 10;
 	}
 
 	private void CompareInput() {
