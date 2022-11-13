@@ -12,11 +12,13 @@ public class KeyBoardInput : MonoBehaviour
     public TMP_Text text;
     public TMP_Text TimerText;
     public float timeRemaining = 10;
+    public HealthManager enemyHealthManager;
+    public HealthManager playerHealthManager;
+    public ButtonUI buttonUI;
 
     private StringBuilder playerInput = new StringBuilder("");
 	private string sentence = "";
 	private bool playing = false;
-	public bool finished = false;
 	private int[] compare;
 	private string CORRECT_COLOR_OPEN_TAG = "<color=green>";
 	private string INCORRECT_COLOR_OPEN_TAG = "<color=red>";
@@ -53,8 +55,31 @@ public class KeyBoardInput : MonoBehaviour
 			if (timeRemaining <= 0)
 			{
 				playing = false;
-				finished = true;
 				Debug.Log("Correct: " + accuracy);
+				enemyHealthManager.TakeDamage(10 * accuracy);
+				playerHealthManager.TakeDamage(5);
+				if (enemyHealthManager.healthAmount > 0 && playerHealthManager.healthAmount > 0)
+				{
+					// reset all the status of the game
+					sentence = "";
+					playerInput = new StringBuilder("");
+					ShowText();
+					timeRemaining = 10;
+					
+					buttonUI.show();
+				}
+				else
+				{
+					// show result
+					if (playerHealthManager.healthAmount > enemyHealthManager.healthAmount)
+					{
+						Debug.Log("Player win");
+					}
+					else
+					{
+						Debug.Log("Enemy win");
+					}
+				}
 			}
 		}
 		
@@ -85,9 +110,8 @@ public class KeyBoardInput : MonoBehaviour
 				compare[i] = -1;
 			}
 		}
-
+		// calculate accuracy based on character
 		accuracy = correctChar / totalChar;
-
 	}
 	
 
@@ -116,7 +140,7 @@ public class KeyBoardInput : MonoBehaviour
 	public void ShowTime()
 	{
 		StringBuilder sb = new StringBuilder();
-		if (timeRemaining >= 0)
+		if (playing && timeRemaining >= 0)
 		{
 			timeRemaining -= Time.deltaTime;
 			float seconds = Mathf.FloorToInt(timeRemaining % 60);
