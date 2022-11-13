@@ -89,14 +89,7 @@ public class KeyBoardInput : MonoBehaviour
 		accuracy = correctChar / totalChar;
 
 	}
-
-	public double AccuracyCalculate()
-	{
-		double result = 0.0;
-		 result= ((correctChar *1.0)/ totalChar)*100;
-		 print(result);
-		 return result;
-	}
+	
 
 	private void ShowText() {
 		StringBuilder sb = new StringBuilder();
@@ -123,7 +116,7 @@ public class KeyBoardInput : MonoBehaviour
 	public void ShowTime()
 	{
 		StringBuilder sb = new StringBuilder();
-		if (timeRemaining > 0)
+		if (timeRemaining >= 0)
 		{
 			timeRemaining -= Time.deltaTime;
 			float seconds = Mathf.FloorToInt(timeRemaining % 60);
@@ -136,13 +129,14 @@ public class KeyBoardInput : MonoBehaviour
 			// 	playing = false;
 			// }
 		}
-		
-	}
+		if (timeRemaining <= 0)
+		{
+			sb = new StringBuilder();
+			sb.Append(COLOR_TIMER_TAG);	
+			sb.Append("0");
+			sb.Append(COLOR_END_TAG);
+			TimerText.text = sb.ToString();
+		}
 
-	public float Calculate()
-	{
-		double accuracy = AccuracyCalculate();
-		finished = false;
-		return (float)accuracy;
 	}
 }
