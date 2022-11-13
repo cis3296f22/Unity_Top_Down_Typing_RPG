@@ -12,11 +12,14 @@ public class KeyBoardInput : MonoBehaviour
     public TMP_Text text;
     public TMP_Text TimerText;
     public float timeRemaining = 10;
+    public HealthManager enemyHealthManager;
+    public HealthManager playerHealthManager;
+    public ButtonUI buttonUI;
+    public ParticleSystem particalSystem;
 
     private StringBuilder playerInput = new StringBuilder("");
 	private string sentence = "";
 	private bool playing = false;
-	public bool finished = false;
 	private int[] compare;
 	private string CORRECT_COLOR_OPEN_TAG = "<color=green>";
 	private string INCORRECT_COLOR_OPEN_TAG = "<color=red>";
@@ -24,9 +27,9 @@ public class KeyBoardInput : MonoBehaviour
 	private string COLOR_END_TAG = "</color>";
 	private string COLOR_TIMER_TAG = "<color=black>";
 	
-	private float totalWord;
-	private float correctWord;
-	private float accuracyWord;
+	private float totalChar;
+	private float correctChar;
+	private float accuracy;
 
 	private int size;
     // Start is called before the first frame update
@@ -40,7 +43,12 @@ public class KeyBoardInput : MonoBehaviour
     {
 		if (playing == true) {
 			if (Input.GetKeyDown(KeyCode.Backspace)) {
-				playerInput.Length --;
+				// only remove when the player input something
+				if (playerInput.Length > 0)
+				{
+					playerInput.Length --;
+				}
+				
 			}
         	else if (Input.anyKeyDown) {
             	playerInput.Append(Input.inputString);
@@ -50,10 +58,33 @@ public class KeyBoardInput : MonoBehaviour
 			CompareInput();
 			ShowText();
 			ShowTime();
-			if (timeRemaining == 0)
+			if (timeRemaining <= 0)
 			{
 				playing = false;
-				finished = true;
+				Debug.Log("Correct: " + accuracy);
+				enemyHealthManager.TakeDamage(10 * accuracy);
+				playerHealthManager.TakeDamage(5);
+				if (enemyHealthManager.healthAmount > 0 && playerHealthManager.healthAmount > 0)
+				{
+					// reset all the status of the game
+					
+					Reset();
+					
+					buttonUI.show();
+				}
+				else
+				{
+					// show result
+					if (playerHealthManager.healthAmount > enemyHealthManager.healthAmount)
+					{
+						Debug.Log("Player win");
+						
+					}
+					else
+					{
+						Debug.Log("Enemy win");
+					}
+				}
 			}
 		}
 		
@@ -68,30 +99,35 @@ public class KeyBoardInput : MonoBehaviour
 		}
 	}
 
+	public void Reset()
+	{
+		sentence = "";
+		playerInput = new StringBuilder("");
+		compare = new int[0];
+		ShowText();
+		timeRemaining = 10;
+	}
+
 	private void CompareInput() {
 		int min = Math.Min(sentence.Length, playerInput.Length);
 		int max = Math.Max(sentence.Length, playerInput.Length);
 		compare = new int[max];
+		totalChar = max;
+		correctChar = 0;
 		for (int i = 0; i < min;i++)
 		{
-			totalWord++;
 			if (sentence[i] == playerInput[i]) {
 				compare[i] = 1;
-				correctWord++;
+				correctChar++;
 			}
 			else {
 				compare[i] = -1;
 			}
 		}
+		// calculate accuracy based on character
+		accuracy = correctChar / totalChar;
 	}
-
-	public double AccuracyCalculate()
-	{
-		double result = 0.0;
-		 result= ((correctWord *1.0)/ totalWord)*100;
-		 print(result);
-		 return result;
-	}
+	
 
 	private void ShowText() {
 		StringBuilder sb = new StringBuilder();
@@ -118,26 +154,27 @@ public class KeyBoardInput : MonoBehaviour
 	public void ShowTime()
 	{
 		StringBuilder sb = new StringBuilder();
-		if (timeRemaining > 0)
+		if (playing && timeRemaining >= 0)
 		{
 			timeRemaining -= Time.deltaTime;
 			float seconds = Mathf.FloorToInt(timeRemaining % 60);
 			sb.Append(COLOR_TIMER_TAG);	
 			sb.Append(seconds);
 			sb.Append(COLOR_END_TAG);
-
+			TimerText.text = sb.ToString();
 			// if (timeRemaining == 0)
 			// {
 			// 	playing = false;
 			// }
 		}
-		TimerText.text = sb.ToString();
-	}
+		if (timeRemaining <= 0)
+		{
+			sb = new StringBuilder();
+			sb.Append(COLOR_TIMER_TAG);	
+			sb.Append("0");
+			sb.Append(COLOR_END_TAG);
+			TimerText.text = sb.ToString();
+		}
 
-	public float Calculate()
-	{
-		double accuracy = AccuracyCalculate();
-		finished = false;
-		return (float)accuracy;
 	}
 }

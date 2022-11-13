@@ -33,8 +33,7 @@ public class ButtonUI : MonoBehaviour
     
     public void hide()
     {
-                textField.SetActive(false);
-        
+        textField.SetActive(false);
     }
     
     public void show()
