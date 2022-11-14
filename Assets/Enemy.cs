@@ -5,16 +5,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    
-    private void Update()
-    {
-        if (PlayerPrefs.GetInt("TimeToLoad") == 1)
-        {
-            GetComponent<CapsuleCollider2D>().enabled = false;
-        }
-    }
+    public float health = 100;
+    public float speed = 3000;
+    public string name;
 
-    public static Enemy Instance;
+    private float time;
+    private string word;
+    
+    
+    
     public float Health {
         set {
             health = value;
@@ -27,13 +26,7 @@ public class Enemy : MonoBehaviour
             return health;
         }
     }
-
-    public float health = 100;
-    public float speed = 3000;
-
-    private float time;
-    private string word;
-
+    
     public void TakeDamage(float damage) {
         Health -= damage;
     }

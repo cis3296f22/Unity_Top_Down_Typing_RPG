@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 playerPosition;
     Vector2 movementInput;
     public GameObject player;
+    public GameObject enemy;
     Rigidbody2D rb;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     public Animator animator;
@@ -25,40 +26,42 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        
         if (PlayerPrefs.GetInt("Saved") == 1 && PlayerPrefs.GetInt("TimeToLoad") == 1)
         {
-            if (PlayerPrefs.GetInt("IsWin") == 0)
-            {
-                PlayerPrefs.DeleteKey("p_x");
-                PlayerPrefs.DeleteKey("p_y");
-                PlayerPrefs.DeleteKey("TimeToLoad");
-            }
-
             float pX = player.transform.position.x;
             float pY = player.transform.position.y;
             
             pX = PlayerPrefs.GetFloat("p_x");
             pY = PlayerPrefs.GetFloat(("p_y"));
-            player.transform.position = new Vector2(pX, pY);
+            if (PlayerPrefs.GetInt("IsWin") == 0)
+            {
+                PlayerPrefs.DeleteKey("p_x");
+                PlayerPrefs.DeleteKey("p_y");
+                PlayerPrefs.DeleteKey("TimeToLoad");
+                player.transform.position = new Vector2(pX, pY);
+            }
+
+            if (PlayerPrefs.GetInt("IsWin") == 1)
+            {
+                player.transform.position = new Vector2(pX, pY);
+            }
+            if (PlayerPrefs.GetInt("IsWin") == 1)
+            {
+                Destroy(GameObject.Find(PlayerPrefs.GetString("enemyName")));
+                PlayerPrefs.SetInt("IsWin",0);
+            }
+            
             Debug.Log(pX);
             Debug.Log(pY);
             PlayerPrefs.SetInt("TimeToLoad", 0);
             PlayerPrefs.Save();
             canMove = true;
         }
+        //Debug.Log(EnemyId.ToString());
+        
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        // if (Instance != null)
-        // {
-        //     Destroy(gameObject);
-        //     return;
-        // }
-        // Instance = this;
-        // DontDestroyOnLoad(gameObject);
-        
     }
 
     private void Awake()
@@ -140,7 +143,10 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Enemy") {
             PlayerPosSave();
             Enemy enemy = other.GetComponent<Enemy>();
-            if (enemy != null) {
+            if (enemy != null)
+            {
+                PlayerPrefs.SetString("enemyName", enemy.name);
+                Debug.Log(enemy.name);
                 // lock player move
                 canMove = false;
                 // stop animation moving
@@ -150,7 +156,6 @@ public class PlayerController : MonoBehaviour
                 //Wait attach finished
                 yield return new WaitForSeconds(transitionTime);
                 // switch scene
-                
                 SwitchScene();
             }
 

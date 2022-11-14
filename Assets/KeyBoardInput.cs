@@ -18,6 +18,7 @@ public class KeyBoardInput : MonoBehaviour
     public ParticleSystem particalSystem;
 
     public PlayerController playerController;
+    public Enemy enemy;
     private StringBuilder playerInput = new StringBuilder("");
 	private string sentence = "";
 	private bool playing = false;
@@ -31,6 +32,7 @@ public class KeyBoardInput : MonoBehaviour
 	private float totalChar;
 	private float correctChar;
 	private float accuracy;
+	private int EnemyId;
 
 	private int size;
     // Start is called before the first frame update
@@ -38,6 +40,7 @@ public class KeyBoardInput : MonoBehaviour
     {
 		WordGenerator.GenerateDict();
 		Debug.Log("Inputplayer Start");
+		
     }
 
     // Update is called once per frame
@@ -64,9 +67,9 @@ public class KeyBoardInput : MonoBehaviour
 			{
 				playing = false;
 				Debug.Log("Correct: " + accuracy);
-				enemyHealthManager.TakeDamage(10);
+				enemyHealthManager.TakeDamage(100);
 				//enemyHealthManager.TakeDamage(10 * accuracy);
-				playerHealthManager.TakeDamage(100);
+				playerHealthManager.TakeDamage(10);
 				if (enemyHealthManager.healthAmount > 0 && playerHealthManager.healthAmount > 0)
 				{
 					// reset all the status of the game
@@ -80,8 +83,10 @@ public class KeyBoardInput : MonoBehaviour
 					// show result
 					if (playerHealthManager.healthAmount > enemyHealthManager.healthAmount)
 					{
+						
 						Debug.Log("Player win");
 						PlayerPrefs.SetInt("IsWin", 1);
+						//PlayerPrefs.SetInt("enemyId",EnemyId);
 						ShowResult("You Win");
 						SwitchScene();
 
