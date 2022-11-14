@@ -26,8 +26,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         if (PlayerPrefs.GetInt("Saved") == 1 && PlayerPrefs.GetInt("TimeToLoad") == 1)
         {
+            
             float pX = player.transform.position.x;
             float pY = player.transform.position.y;
             
@@ -44,12 +46,10 @@ public class PlayerController : MonoBehaviour
             if (PlayerPrefs.GetInt("IsWin") == 1)
             {
                 player.transform.position = new Vector2(pX, pY);
-            }
-            if (PlayerPrefs.GetInt("IsWin") == 1)
-            {
                 Destroy(GameObject.Find(PlayerPrefs.GetString("enemyName")));
                 PlayerPrefs.SetInt("IsWin",0);
             }
+            
             
             Debug.Log(pX);
             Debug.Log(pY);

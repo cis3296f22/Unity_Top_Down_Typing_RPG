@@ -18,6 +18,7 @@ public class ButtonUI : MonoBehaviour
     //Creating fight scene button
     public void RunButton()
     {
+        PlayerPrefs.SetInt("IsWin", 1);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
     }
 
