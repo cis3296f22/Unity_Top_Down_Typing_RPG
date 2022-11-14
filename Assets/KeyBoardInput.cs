@@ -67,9 +67,9 @@ public class KeyBoardInput : MonoBehaviour
 			{
 				playing = false;
 				Debug.Log("Correct: " + accuracy);
-				enemyHealthManager.TakeDamage(100);
-				//enemyHealthManager.TakeDamage(10 * accuracy);
-				playerHealthManager.TakeDamage(10);
+				//enemyHealthManager.TakeDamage(100);
+				enemyHealthManager.TakeDamage(10 * accuracy);
+				playerHealthManager.TakeDamage(100);
 				if (enemyHealthManager.healthAmount > 0 && playerHealthManager.healthAmount > 0)
 				{
 					// reset all the status of the game
@@ -95,7 +95,9 @@ public class KeyBoardInput : MonoBehaviour
 					{
 						Debug.Log("Enemy win");
 						PlayerPrefs.SetInt("IsWin", 0);
-						
+						PlayerPrefs.DeleteKey("p_x");
+						PlayerPrefs.DeleteKey("p_y");
+						PlayerPrefs.DeleteKey("TimeToLoad");
 						ShowResult("You Lose");
 						SwitchScene();
 					}

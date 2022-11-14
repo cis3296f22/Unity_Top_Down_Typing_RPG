@@ -29,19 +29,18 @@ public class PlayerController : MonoBehaviour
         
         if (PlayerPrefs.GetInt("Saved") == 1 && PlayerPrefs.GetInt("TimeToLoad") == 1)
         {
-            
+            // if (PlayerPrefs.GetInt("IsWin") == 0)
+            // {
+            //     PlayerPrefs.DeleteKey("p_x");
+            //     PlayerPrefs.DeleteKey("p_y");
+            //     PlayerPrefs.DeleteKey("TimeToLoad");
+            // }
             float pX = player.transform.position.x;
             float pY = player.transform.position.y;
             
             pX = PlayerPrefs.GetFloat("p_x");
             pY = PlayerPrefs.GetFloat(("p_y"));
-            if (PlayerPrefs.GetInt("IsWin") == 0)
-            {
-                PlayerPrefs.DeleteKey("p_x");
-                PlayerPrefs.DeleteKey("p_y");
-                PlayerPrefs.DeleteKey("TimeToLoad");
-                player.transform.position = new Vector2(pX, pY);
-            }
+            
 
             if (PlayerPrefs.GetInt("IsWin") == 1)
             {
