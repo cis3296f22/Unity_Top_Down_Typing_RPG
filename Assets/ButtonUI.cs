@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,12 @@ public class ButtonUI : MonoBehaviour
     public GameObject textField;
 
 	public KeyBoardInput keyboardInput;
+
+    private void Start()
+    {
+        Debug.Log("Fight Scene Start");
+    }
+
     //Creating fight scene button
     public void RunButton()
     {

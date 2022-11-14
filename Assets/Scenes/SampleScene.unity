@@ -11041,7 +11041,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -15699,6 +15699,16 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1864263580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1757131329915342199, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
+  m_PrefabInstance: {fileID: 5135944866438378276}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1864263581 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7634577418236523899, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
+  m_PrefabInstance: {fileID: 5135944866438378276}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1986247104
 GameObject:
   m_ObjectHideFlags: 0
@@ -16507,9 +16517,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1095983049163675330, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1864263580}
+    - target: {fileID: 1095983049163675330, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1864263581}
+    - target: {fileID: 1095983049163675330, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
       propertyPath: transition
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1864263581}
+    - target: {fileID: 1095983049163675330, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
+      propertyPath: playerStorage
+      value: 
+      objectReference: {fileID: 11400000, guid: 071a3da99126e1e438e29d313b6c1696, type: 2}
     - target: {fileID: 1757131329915342199, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
       propertyPath: m_Name
       value: Player

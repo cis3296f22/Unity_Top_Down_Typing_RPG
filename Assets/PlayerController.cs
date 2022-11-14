@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,23 +13,67 @@ public class PlayerController : MonoBehaviour
     public ContactFilter2D movementFilter;
     public EnemySelect enemySelect;
     public Animator transition;
-    
-
+    public Vector2 playerPosition;
     Vector2 movementInput;
+    public GameObject player;
     Rigidbody2D rb;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-    Animator animator;
+    public Animator animator;
     SpriteRenderer spriteRenderer;
-    bool canMove = true;
+    public bool canMove = true;
     public float transitionTime = 1f;
-
     // Start is called before the first frame update
     void Start()
     {
+        
+        if (PlayerPrefs.GetInt("Saved") == 1 && PlayerPrefs.GetInt("TimeToLoad") == 1)
+        {
+            float pX = player.transform.position.x;
+            float pY = player.transform.position.y;
+            
+            pX = PlayerPrefs.GetFloat("p_x");
+            pY = PlayerPrefs.GetFloat(("p_y"));
+            player.transform.position = new Vector2(pX, pY);
+            Debug.Log(pX);
+            Debug.Log(pY);
+            PlayerPrefs.SetInt("TimeToLoad", 0);
+            PlayerPrefs.Save();
+        }
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        // if (Instance != null)
+        // {
+        //     Destroy(gameObject);
+        //     return;
+        // }
+        // Instance = this;
+        // DontDestroyOnLoad(gameObject);
+        
     }
+
+    private void Awake()
+    {
+        PlayerPosLoad();
+    }
+
+    public void PlayerPosSave()
+    {
+        PlayerPrefs.SetFloat("p_x",gameObject.transform.position.x);
+        PlayerPrefs.SetFloat("p_y",gameObject.transform.position.y);
+        PlayerPrefs.SetInt("Saved", 1);
+        Debug.Log(PlayerPrefs.GetFloat("p_x"));
+        Debug.Log(PlayerPrefs.GetFloat("p_y"));
+        PlayerPrefs.Save();
+    }
+
+    public void PlayerPosLoad()
+    {
+        PlayerPrefs.SetInt("TimeToLoad", 1);
+        PlayerPrefs.Save();
+        Debug.Log("Load Working");
+    }
+    
 
     private void FixedUpdate()
     {
@@ -83,6 +129,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator OnTriggerEnter2D(Collider2D other) {
         print("Touch enemy in player");
         if (other.tag == "Enemy") {
+            PlayerPosSave();
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null) {
                 // lock player move
@@ -94,6 +141,7 @@ public class PlayerController : MonoBehaviour
                 //Wait attach finished
                 yield return new WaitForSeconds(transitionTime);
                 // switch scene
+                
                 SwitchScene();
             }
 
@@ -114,4 +162,5 @@ public class PlayerController : MonoBehaviour
         //load scene
         SceneManager.LoadScene(SceneIndex);
     }
+    
 }

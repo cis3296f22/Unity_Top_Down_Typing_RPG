@@ -36,6 +36,7 @@ public class KeyBoardInput : MonoBehaviour
     void Start()
     {
 		WordGenerator.GenerateDict();
+		Debug.Log("Inputplayer Start");
     }
 
     // Update is called once per frame
