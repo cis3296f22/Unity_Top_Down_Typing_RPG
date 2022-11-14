@@ -17,6 +17,7 @@ public class KeyBoardInput : MonoBehaviour
     public ButtonUI buttonUI;
     public ParticleSystem particalSystem;
 
+    public PlayerController playerController;
     private StringBuilder playerInput = new StringBuilder("");
 	private string sentence = "";
 	private bool playing = false;
@@ -63,8 +64,9 @@ public class KeyBoardInput : MonoBehaviour
 			{
 				playing = false;
 				Debug.Log("Correct: " + accuracy);
-				enemyHealthManager.TakeDamage(10 * accuracy);
-				playerHealthManager.TakeDamage(5);
+				enemyHealthManager.TakeDamage(100);
+				//enemyHealthManager.TakeDamage(10 * accuracy);
+				playerHealthManager.TakeDamage(10);
 				if (enemyHealthManager.healthAmount > 0 && playerHealthManager.healthAmount > 0)
 				{
 					// reset all the status of the game
@@ -79,11 +81,18 @@ public class KeyBoardInput : MonoBehaviour
 					if (playerHealthManager.healthAmount > enemyHealthManager.healthAmount)
 					{
 						Debug.Log("Player win");
-						
+						PlayerPrefs.SetInt("TimeToLoad", 1);
+						ShowResult("You Win");
+						SwitchScene();
+
 					}
 					else
 					{
 						Debug.Log("Enemy win");
+						PlayerPrefs.GetInt("TimeToLoad", 0);
+						
+						ShowResult("You Lose");
+						SwitchScene();
 					}
 				}
 			}
@@ -177,5 +186,29 @@ public class KeyBoardInput : MonoBehaviour
 			TimerText.text = sb.ToString();
 		}
 
+	}
+
+	public void ShowResult(String result)
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.Append(CORRECT_COLOR_OPEN_TAG);
+		sb.Append(result);
+		sb.Append(COLOR_END_TAG);
+	}
+	
+	public void SwitchScene()
+	{
+		StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex -1));
+        
+	}
+
+	IEnumerator LoadScene(int SceneIndex)
+	{
+		//play animation
+		//transition.SetTrigger("Start");
+		//wait
+		yield return new WaitForSeconds(2f);
+		//load scene
+		SceneManager.LoadScene(SceneIndex);
 	}
 }
