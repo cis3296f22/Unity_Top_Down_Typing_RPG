@@ -64,9 +64,9 @@ public class KeyBoardInput : MonoBehaviour
 			{
 				playing = false;
 				Debug.Log("Correct: " + accuracy);
-				enemyHealthManager.TakeDamage(100);
+				enemyHealthManager.TakeDamage(10);
 				//enemyHealthManager.TakeDamage(10 * accuracy);
-				playerHealthManager.TakeDamage(10);
+				playerHealthManager.TakeDamage(100);
 				if (enemyHealthManager.healthAmount > 0 && playerHealthManager.healthAmount > 0)
 				{
 					// reset all the status of the game
@@ -81,7 +81,7 @@ public class KeyBoardInput : MonoBehaviour
 					if (playerHealthManager.healthAmount > enemyHealthManager.healthAmount)
 					{
 						Debug.Log("Player win");
-						PlayerPrefs.SetInt("TimeToLoad", 1);
+						PlayerPrefs.SetInt("IsWin", 1);
 						ShowResult("You Win");
 						SwitchScene();
 
@@ -89,7 +89,7 @@ public class KeyBoardInput : MonoBehaviour
 					else
 					{
 						Debug.Log("Enemy win");
-						PlayerPrefs.GetInt("TimeToLoad", 0);
+						PlayerPrefs.SetInt("IsWin", 0);
 						
 						ShowResult("You Lose");
 						SwitchScene();

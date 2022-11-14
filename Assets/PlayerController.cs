@@ -29,7 +29,13 @@ public class PlayerController : MonoBehaviour
         
         if (PlayerPrefs.GetInt("Saved") == 1 && PlayerPrefs.GetInt("TimeToLoad") == 1)
         {
-            
+            if (PlayerPrefs.GetInt("IsWin") == 0)
+            {
+                PlayerPrefs.DeleteKey("p_x");
+                PlayerPrefs.DeleteKey("p_y");
+                PlayerPrefs.DeleteKey("TimeToLoad");
+            }
+
             float pX = player.transform.position.x;
             float pY = player.transform.position.y;
             
@@ -40,13 +46,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log(pY);
             PlayerPrefs.SetInt("TimeToLoad", 0);
             PlayerPrefs.Save();
-        }
-        else
-        {
-            PlayerPrefs.DeleteKey("p_x");
-            PlayerPrefs.DeleteKey("p_y");
-            PlayerPrefs.DeleteKey("TimeToLoad");
-            
+            canMove = true;
         }
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();

@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    
+    private void Update()
+    {
+        if (PlayerPrefs.GetInt("TimeToLoad") == 1)
+        {
+            GetComponent<CapsuleCollider2D>().enabled = false;
+        }
+    }
 
     public static Enemy Instance;
     public float Health {
