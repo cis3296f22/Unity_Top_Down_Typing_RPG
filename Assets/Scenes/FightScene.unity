@@ -16271,6 +16271,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1960105473}
     m_Modifications:
     - target: {fileID: 1095983049163675330, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095983049163675330, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 2068132148}
+    - target: {fileID: 1095983049163675330, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
       propertyPath: transition
       value: 
       objectReference: {fileID: 0}
@@ -22568,6 +22576,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2036441427}
   m_CullTransparentMesh: 1
+--- !u!95 &2068132148 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7634577418236523899, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
+  m_PrefabInstance: {fileID: 1243203498}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2081965665
 GameObject:
   m_ObjectHideFlags: 0
@@ -22621,6 +22634,8 @@ MonoBehaviour:
   playerHealthManager: {fileID: 1111083883}
   buttonUI: {fileID: 635025308}
   particalSystem: {fileID: 79546020}
+  playerController: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!1001 &2135560032
 PrefabInstance:
   m_ObjectHideFlags: 0

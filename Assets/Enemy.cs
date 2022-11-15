@@ -1,9 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public float health = 100;
+    public float speed = 3000;
+    public string name;
+
+    private float time;
+    private string word;
+    
+    
+    
     public float Health {
         set {
             health = value;
@@ -16,13 +26,7 @@ public class Enemy : MonoBehaviour
             return health;
         }
     }
-
-    public float health = 100;
-    public float speed = 3000;
-
-    private float time;
-    private string word;
-
+    
     public void TakeDamage(float damage) {
         Health -= damage;
     }

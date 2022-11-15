@@ -17,6 +17,8 @@ public class KeyBoardInput : MonoBehaviour
     public ButtonUI buttonUI;
     public ParticleSystem particalSystem;
 
+    public PlayerController playerController;
+    public Enemy enemy;
     private StringBuilder playerInput = new StringBuilder("");
 	private string sentence = "";
 	private bool playing = false;
@@ -30,12 +32,15 @@ public class KeyBoardInput : MonoBehaviour
 	private float totalChar;
 	private float correctChar;
 	private float accuracy;
+	private int EnemyId;
 
 	private int size;
     // Start is called before the first frame update
     void Start()
     {
 		WordGenerator.GenerateDict();
+		Debug.Log("Inputplayer Start");
+		
     }
 
     // Update is called once per frame
@@ -62,6 +67,7 @@ public class KeyBoardInput : MonoBehaviour
 			{
 				playing = false;
 				Debug.Log("Correct: " + accuracy);
+				//enemyHealthManager.TakeDamage(100);
 				enemyHealthManager.TakeDamage(10 * accuracy);
 				playerHealthManager.TakeDamage(5);
 				if (enemyHealthManager.healthAmount > 0 && playerHealthManager.healthAmount > 0)
@@ -77,12 +83,24 @@ public class KeyBoardInput : MonoBehaviour
 					// show result
 					if (playerHealthManager.healthAmount > enemyHealthManager.healthAmount)
 					{
+						//If win, save player data and return back last position with data. 
 						Debug.Log("Player win");
-						
+						PlayerPrefs.SetInt("IsWin", 1);
+						//PlayerPrefs.SetInt("enemyId",EnemyId);
+						ShowResult("You Win");
+						SwitchScene();
+
 					}
 					else
 					{
+						//If lose, player dead, reset all player data and return back to Starting point
 						Debug.Log("Enemy win");
+						PlayerPrefs.SetInt("IsWin", 0);
+						PlayerPrefs.DeleteKey("p_x");
+						PlayerPrefs.DeleteKey("p_y");
+						PlayerPrefs.DeleteKey("TimeToLoad");
+						ShowResult("You Lose");
+						SwitchScene();
 					}
 				}
 			}
@@ -176,5 +194,29 @@ public class KeyBoardInput : MonoBehaviour
 			TimerText.text = sb.ToString();
 		}
 
+	}
+
+	public void ShowResult(String result)
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.Append(CORRECT_COLOR_OPEN_TAG);
+		sb.Append(result);
+		sb.Append(COLOR_END_TAG);
+	}
+	
+	public void SwitchScene()
+	{
+		StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex -1));
+        
+	}
+
+	IEnumerator LoadScene(int SceneIndex)
+	{
+		//play animation
+		//transition.SetTrigger("Start");
+		//wait
+		yield return new WaitForSeconds(2f);
+		//load scene
+		SceneManager.LoadScene(SceneIndex);
 	}
 }
