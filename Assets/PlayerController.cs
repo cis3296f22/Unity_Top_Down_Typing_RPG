@@ -14,10 +14,12 @@ public class PlayerController : MonoBehaviour
     public EnemySelect enemySelect;
     public Animator transition;
     public Vector2 playerPosition;
-    Vector2 movementInput;
+    
     public GameObject player;
     public GameObject enemy;
+    
     Rigidbody2D rb;
+    Vector2 movementInput;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     public Animator animator;
     SpriteRenderer spriteRenderer;
@@ -26,15 +28,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        // When starting sample scene, check if it is starting game or return from fight scene.
+        // If return from fight scene, check if win or lose. if win, start player at last position and destroys enemy. lose, restart game.
+        // if run, same behavior with win case.
         if (PlayerPrefs.GetInt("Saved") == 1 && PlayerPrefs.GetInt("TimeToLoad") == 1)
         {
-            // if (PlayerPrefs.GetInt("IsWin") == 0)
-            // {
-            //     PlayerPrefs.DeleteKey("p_x");
-            //     PlayerPrefs.DeleteKey("p_y");
-            //     PlayerPrefs.DeleteKey("TimeToLoad");
-            // }
             float pX = player.transform.position.x;
             float pY = player.transform.position.y;
             
@@ -45,6 +43,7 @@ public class PlayerController : MonoBehaviour
             if (PlayerPrefs.GetInt("IsWin") == 1)
             {
                 player.transform.position = new Vector2(pX, pY);
+                //Destroy enemy based on name variable was taken in collision.
                 Destroy(GameObject.Find(PlayerPrefs.GetString("enemyName")));
                 PlayerPrefs.SetInt("IsWin",0);
             }
@@ -63,11 +62,13 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    
     private void Awake()
     {
         PlayerPosLoad();
     }
 
+    // save last position of player before switch scene.
     public void PlayerPosSave()
     {
         PlayerPrefs.SetFloat("p_x",gameObject.transform.position.x);
@@ -77,7 +78,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log(PlayerPrefs.GetFloat("p_y"));
         PlayerPrefs.Save();
     }
-
+    // load player postion
     public void PlayerPosLoad()
     {
         PlayerPrefs.SetInt("TimeToLoad", 1);
@@ -144,6 +145,7 @@ public class PlayerController : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null)
             {
+                // get enemy name.
                 PlayerPrefs.SetString("enemyName", enemy.name);
                 Debug.Log(enemy.name);
                 // lock player move

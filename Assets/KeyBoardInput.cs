@@ -69,7 +69,7 @@ public class KeyBoardInput : MonoBehaviour
 				Debug.Log("Correct: " + accuracy);
 				//enemyHealthManager.TakeDamage(100);
 				enemyHealthManager.TakeDamage(10 * accuracy);
-				playerHealthManager.TakeDamage(100);
+				playerHealthManager.TakeDamage(5);
 				if (enemyHealthManager.healthAmount > 0 && playerHealthManager.healthAmount > 0)
 				{
 					// reset all the status of the game
@@ -83,7 +83,7 @@ public class KeyBoardInput : MonoBehaviour
 					// show result
 					if (playerHealthManager.healthAmount > enemyHealthManager.healthAmount)
 					{
-						
+						//If win, save player data and return back last position with data. 
 						Debug.Log("Player win");
 						PlayerPrefs.SetInt("IsWin", 1);
 						//PlayerPrefs.SetInt("enemyId",EnemyId);
@@ -93,6 +93,7 @@ public class KeyBoardInput : MonoBehaviour
 					}
 					else
 					{
+						//If lose, player dead, reset all player data and return back to Starting point
 						Debug.Log("Enemy win");
 						PlayerPrefs.SetInt("IsWin", 0);
 						PlayerPrefs.DeleteKey("p_x");
