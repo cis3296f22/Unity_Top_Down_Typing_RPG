@@ -16,7 +16,13 @@ public class KeyBoardInput : MonoBehaviour
     public HealthManager playerHealthManager;
     public ButtonUI buttonUI;
     public ParticleSystem particalSystem;
-
+    public float currentDamage;
+    public TMP_Text PlayerMessText;
+    public GameObject PlayerMessageObject;
+    
+    public TMP_Text EnemyMessText;
+    public GameObject EnemyMessageObject;
+    
     public PlayerController playerController;
     public Enemy enemy;
     private StringBuilder playerInput = new StringBuilder("");
@@ -40,6 +46,8 @@ public class KeyBoardInput : MonoBehaviour
     {
 		WordGenerator.GenerateDict();
 		Debug.Log("Inputplayer Start");
+		PlayerMessageObject.SetActive(false);
+		EnemyMessageObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -117,7 +125,7 @@ public class KeyBoardInput : MonoBehaviour
 	private void PlayerTurn()
 	{
 		Debug.Log("Player Turn");
-		enemyHealthManager.TakeDamage(10 * accuracy);
+		enemyHealthManager.TakeDamage(currentDamage);
 		
 	}
 	//Enemy attack turn.
@@ -125,15 +133,26 @@ public class KeyBoardInput : MonoBehaviour
 	{
 		Debug.Log("Enemy Turn");
 		playerHealthManager.TakeDamage(5);
+		
 	}
 	
 	// control both turn. 
 	IEnumerator FightTurn()
 	{
+		float fc = (float)Math.Round(currentDamage * 100f) / 100f;
 		Debug.Log("Wait Turn");
 		PlayerTurn();
-		yield return new WaitForSeconds(3f);
+		EnemyMessageObject.SetActive(true);
+		EnemyMessText.SetText("Enemy got " + fc + " Damages");
+		yield return new WaitForSeconds(1f);
+		EnemyMessageObject.SetActive(false);
+		yield return new WaitForSeconds(2f);
 		EmenyTurn();
+		PlayerMessageObject.SetActive(true);
+		PlayerMessText.SetText("Player got " + 5 +" Damages");
+		yield return new WaitForSeconds(1f);
+		PlayerMessageObject.SetActive(false);
+		
 	}
 
 	public void Reset()
@@ -170,6 +189,7 @@ public class KeyBoardInput : MonoBehaviour
 		}
 		// calculate accuracy based on character
 		accuracy = correctChar / totalChar;
+		currentDamage = accuracy * 10;
 	}
 	
 
