@@ -23,11 +23,11 @@ public class KeyBoardInput : MonoBehaviour
 	private string sentence = "";
 	private bool playing = false;
 	private int[] compare;
-	private string CORRECT_COLOR_OPEN_TAG = "<color=green>";
-	private string INCORRECT_COLOR_OPEN_TAG = "<color=red>";
-	private string NOT_TYPING_COLOR_TAG = "<color=grey>";
+	private string CORRECT_COLOR_OPEN_TAG = "<color=#207F20>";
+	private string INCORRECT_COLOR_OPEN_TAG = "<color=#de0e3a>";
+	private string NOT_TYPING_COLOR_TAG = "<color=#F0E1C5>";
 	private string COLOR_END_TAG = "</color>";
-	private string COLOR_TIMER_TAG = "<color=black>";
+	private string COLOR_TIMER_TAG = "<color=#442A14>";
 	
 	private float totalChar;
 	private float correctChar;

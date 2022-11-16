@@ -7,7 +7,6 @@ public class Enemy : MonoBehaviour
 {
     public float health = 100;
     public float speed = 3000;
-    public string name;
 
     private float time;
     private string word;
