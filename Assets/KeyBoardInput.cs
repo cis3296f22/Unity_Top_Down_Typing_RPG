@@ -40,7 +40,6 @@ public class KeyBoardInput : MonoBehaviour
     {
 		WordGenerator.GenerateDict();
 		Debug.Log("Inputplayer Start");
-		
     }
 
     // Update is called once per frame
@@ -63,45 +62,43 @@ public class KeyBoardInput : MonoBehaviour
 			CompareInput();
 			ShowText();
 			ShowTime();
-			if (timeRemaining <= 0)
+			
+		}
+		if (timeRemaining <= 0)
+		{
+			playing = false;
+			Debug.Log("Correct: " + accuracy);
+			StartCoroutine(FightTurn());
+			//enemyHealthManager.TakeDamage(100);
+			if (enemyHealthManager.healthAmount > 0 && playerHealthManager.healthAmount > 0)
 			{
-				playing = false;
-				Debug.Log("Correct: " + accuracy);
-				//enemyHealthManager.TakeDamage(100);
-				enemyHealthManager.TakeDamage(10 * accuracy);
-				playerHealthManager.TakeDamage(5);
-				if (enemyHealthManager.healthAmount > 0 && playerHealthManager.healthAmount > 0)
+				// reset all the status of the game
+				Reset();
+				StartCoroutine(ResetButton());
+			}
+			else
+			{
+				// show result
+				if (playerHealthManager.healthAmount > enemyHealthManager.healthAmount)
 				{
-					// reset all the status of the game
-					
-					Reset();
-					
-					buttonUI.show();
+					//If win, save player data and return back last position with data. 
+					Debug.Log("Player win");
+					PlayerPrefs.SetInt("IsWin", 1);
+					//PlayerPrefs.SetInt("enemyId",EnemyId);
+					ShowResult("You Win");
+					SwitchScene();
+
 				}
 				else
 				{
-					// show result
-					if (playerHealthManager.healthAmount > enemyHealthManager.healthAmount)
-					{
-						//If win, save player data and return back last position with data. 
-						Debug.Log("Player win");
-						PlayerPrefs.SetInt("IsWin", 1);
-						//PlayerPrefs.SetInt("enemyId",EnemyId);
-						ShowResult("You Win");
-						SwitchScene();
-
-					}
-					else
-					{
-						//If lose, player dead, reset all player data and return back to Starting point
-						Debug.Log("Enemy win");
-						PlayerPrefs.SetInt("IsWin", 0);
-						PlayerPrefs.DeleteKey("p_x");
-						PlayerPrefs.DeleteKey("p_y");
-						PlayerPrefs.DeleteKey("TimeToLoad");
-						ShowResult("You Lose");
-						SwitchScene();
-					}
+					//If lose, player dead, reset all player data and return back to Starting point
+					Debug.Log("Enemy win");
+					PlayerPrefs.SetInt("IsWin", 0);
+					PlayerPrefs.DeleteKey("p_x");
+					PlayerPrefs.DeleteKey("p_y");
+					PlayerPrefs.DeleteKey("TimeToLoad");
+					ShowResult("You Lose");
+					SwitchScene();
 				}
 			}
 		}
@@ -116,6 +113,28 @@ public class KeyBoardInput : MonoBehaviour
 			size = sentence.Length;
 		}
 	}
+	// Player attack turn
+	private void PlayerTurn()
+	{
+		Debug.Log("Player Turn");
+		enemyHealthManager.TakeDamage(10 * accuracy);
+		
+	}
+	//Enemy attack turn.
+	private void EmenyTurn()
+	{
+		Debug.Log("Enemy Turn");
+		playerHealthManager.TakeDamage(5);
+	}
+	
+	// control both turn. 
+	IEnumerator FightTurn()
+	{
+		Debug.Log("Wait Turn");
+		PlayerTurn();
+		yield return new WaitForSeconds(3f);
+		EmenyTurn();
+	}
 
 	public void Reset()
 	{
@@ -124,6 +143,13 @@ public class KeyBoardInput : MonoBehaviour
 		compare = new int[0];
 		ShowText();
 		timeRemaining = 10;
+	}
+
+	// Slow show button event.
+	IEnumerator ResetButton()
+	{
+		yield return new WaitForSeconds(5f);
+		buttonUI.show();
 	}
 
 	private void CompareInput() {
