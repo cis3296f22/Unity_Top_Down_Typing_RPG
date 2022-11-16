@@ -9,24 +9,6 @@ public class HealthManager : MonoBehaviour
     public float healthAmount = 100f;
     public KeyBoardInput keyBoardInput;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            TakeDamage(10);
-        }
-        
-        /*if (keyBoardInput.finished == true)
-        {
-            TakeDamage(keyBoardInput.Calculate());
-        }*/
-    }
 
     public void TakeDamage(float damage)
     {
