@@ -16771,6 +16771,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 7634577418236523899, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
   m_PrefabInstance: {fileID: 5135944866438378276}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &1864263583 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2152945862124755768, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
+  m_PrefabInstance: {fileID: 5135944866438378276}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1986247104
 GameObject:
   m_ObjectHideFlags: 0
@@ -17906,6 +17911,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1864263581}
     - target: {fileID: 1095983049163675330, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
+      propertyPath: boxCollider2D
+      value: 
+      objectReference: {fileID: 1864263583}
+    - target: {fileID: 1095983049163675330, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
       propertyPath: playerStorage
       value: 
       objectReference: {fileID: 11400000, guid: 071a3da99126e1e438e29d313b6c1696, type: 2}
@@ -17915,7 +17924,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2152945862124755768, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152945862124755768, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2854989713794611065, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
       propertyPath: m_RootOrder

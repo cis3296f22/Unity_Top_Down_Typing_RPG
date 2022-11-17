@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     
     public GameObject player;
     public GameObject enemy;
+    public BoxCollider2D boxCollider2D;
     
     Rigidbody2D rb;
     Vector2 movementInput;
@@ -47,8 +49,10 @@ public class PlayerController : MonoBehaviour
                 Destroy(GameObject.Find(PlayerPrefs.GetString("enemyName")));
                 PlayerPrefs.SetInt("IsWin",0);
             }
-            
-            
+            else if (PlayerPrefs.GetInt("IsRun") == 1)
+            {
+                player.transform.position = new Vector2(pX, pY);
+            }
             Debug.Log(pX);
             Debug.Log(pY);
             PlayerPrefs.SetInt("TimeToLoad", 0);
@@ -60,6 +64,13 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    IEnumerator toRun()
+    {
+        GetComponent<Collider2D>().isTrigger = false;
+        yield return new WaitForSeconds(3f);
+        GetComponent<Collider2D>().isTrigger = true;
     }
 
     
@@ -140,26 +151,35 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator OnTriggerEnter2D(Collider2D other) {
         print("Touch enemy in player");
-        if (other.tag == "Enemy") {
-            PlayerPosSave();
-            Enemy enemy = other.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                // get enemy name.
-                PlayerPrefs.SetString("enemyName", enemy.name);
-                Debug.Log(enemy.name);
-                // lock player move
-                canMove = false;
-                // stop animation moving
-                animator.SetBool("isMoving", false);
-                // swork attach
-                animator.SetTrigger("swordAttach");
-                //Wait attach finished
-                yield return new WaitForSeconds(transitionTime);
-                // switch scene
-                SwitchScene();
-            }
+        if (PlayerPrefs.GetInt("IsRun") == 1)
+        {
+            other.isTrigger = false;
+            yield return new WaitForSeconds(2f);
+            PlayerPrefs.SetInt("IsRun",0);
+            other.isTrigger = true;
+        }
+        else {
+            if (other.tag == "Enemy") {
+                PlayerPosSave();
+                Enemy enemy = other.GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    // get enemy name.
+                    PlayerPrefs.SetString("enemyName", enemy.name);
+                    Debug.Log(enemy.name);
+                    // lock player move
+                    canMove = false;
+                    // stop animation moving
+                    animator.SetBool("isMoving", false);
+                    // swork attach
+                    animator.SetTrigger("swordAttach");
+                    //Wait attach finished
+                    yield return new WaitForSeconds(transitionTime);
+                    // switch scene
+                    SwitchScene();
+                }
 
+            }
         }
     }
     public void SwitchScene()
