@@ -7,12 +7,21 @@ public class Enemy : MonoBehaviour
 {
     public float health = 100;
     public float speed = 3000;
+    public int isFinish = 0;
 
     private float time;
     private string word;
-    
-    
-    
+
+
+    private void Start()
+    {
+        isFinish = PlayerPrefs.GetInt("IsFinish");
+        if (isFinish == 1)
+        {
+            
+        }
+    }
+
     public float Health {
         set {
             health = value;

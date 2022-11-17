@@ -20,7 +20,7 @@ public class ButtonUI : MonoBehaviour
     //Creating fight scene button
     public void RunButton()
     {
-        PlayerPrefs.SetInt("IsWin", 1);
+        PlayerPrefs.SetInt("IsRun", 1);
         PlayerPrefs.SetInt("TimeToLoad",1);
         string value = PlayerPrefs.GetInt("IsWin", 1).ToString();
         Debug.Log("Set isWin of Run " + value);
