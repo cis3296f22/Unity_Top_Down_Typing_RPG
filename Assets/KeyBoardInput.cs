@@ -76,42 +76,16 @@ public class KeyBoardInput : MonoBehaviour
 		{
 			playing = false;
 			Debug.Log("Correct: " + accuracy);
-			StartCoroutine(FightTurn());
-			//enemyHealthManager.TakeDamage(100);
 			if (enemyHealthManager.healthAmount > 0 && playerHealthManager.healthAmount > 0)
 			{
 				// reset all the status of the game
+				StartCoroutine(FightTurn());
 				Reset();
 				StartCoroutine(ResetButton());
+				
 			}
-			else
-			{
-				// show result
-				if (playerHealthManager.healthAmount > enemyHealthManager.healthAmount)
-				{
-					//If win, save player data and return back last position with data. 
-					Debug.Log("Player win");
-					PlayerPrefs.SetInt("IsWin", 1);
-					//PlayerPrefs.SetInt("enemyId",EnemyId);
-					ShowResult("You Win");
-					SwitchScene();
-
-				}
-				else
-				{
-					//If lose, player dead, reset all player data and return back to Starting point
-					Debug.Log("Enemy win");
-					PlayerPrefs.SetInt("IsWin", 0);
-					PlayerPrefs.DeleteKey("p_x");
-					PlayerPrefs.DeleteKey("p_y");
-					PlayerPrefs.DeleteKey("TimeToLoad");
-					ShowResult("You Lose");
-					SwitchScene();
-				}
-			}
+			
 		}
-		
-        
     }
 
 	public void Begin() {
@@ -119,6 +93,64 @@ public class KeyBoardInput : MonoBehaviour
 			sentence = WordGenerator.GenerateSentence();
 			playing = true;
 			size = sentence.Length;
+		}
+	}
+	// control both turn. 
+	IEnumerator FightTurn()
+	{
+		if (timeRemaining <= 0)
+		{
+			float fc = (float)Math.Round(currentDamage * 100f) / 100f;
+			Debug.Log("Wait Turn");
+			enemyHealthManager.TakeDamage(currentDamage);
+			float checkEnemyHealth = enemyHealthManager.healthAmount;
+			EnemyMessageObject.SetActive(true);
+			EnemyMessText.SetText("Enemy got " + fc + " Damages");
+			yield return new WaitForSeconds(1f);
+			EnemyMessageObject.SetActive(false);
+			
+			if (checkEnemyHealth <= 0)
+			{
+				//If win, save player data and return back last position with data. 
+				Debug.Log("Player win");
+				PlayerPrefs.SetInt("IsWin", 1);
+				PlayerMessageObject.SetActive(true);
+				PlayerMessText.SetText("Player Win");
+				yield return new WaitForSeconds(1f);
+				PlayerMessageObject.SetActive(false);
+				SwitchScene();
+			}
+			else
+			{
+				playerHealthManager.TakeDamage(5);
+				float checkPlayerHealth = playerHealthManager.healthAmount;
+				yield return new WaitForSeconds(1f);
+				if (checkPlayerHealth <= 0)
+				{
+					//If lose, player dead, reset all player data and return back to Starting point
+					Debug.Log("Enemy win");
+					PlayerPrefs.SetInt("IsWin", 0);
+					PlayerPrefs.DeleteKey("p_x");
+					PlayerPrefs.DeleteKey("p_y");
+					PlayerPrefs.DeleteKey("TimeToLoad");
+					PlayerMessageObject.SetActive(true);
+					PlayerMessText.SetText("Player Lose");
+					yield return new WaitForSeconds(0.5f);
+					PlayerMessageObject.SetActive(false);
+					SwitchScene();
+				}
+				else
+				{
+					PlayerMessageObject.SetActive(true);
+					PlayerMessText.SetText("Player got " + 5 + " Damages");
+					yield return new WaitForSeconds(1f);
+					PlayerMessageObject.SetActive(false);
+				}
+			}
+			
+			
+
+			
 		}
 	}
 	// Player attack turn
@@ -133,25 +165,6 @@ public class KeyBoardInput : MonoBehaviour
 	{
 		Debug.Log("Enemy Turn");
 		playerHealthManager.TakeDamage(5);
-		
-	}
-	
-	// control both turn. 
-	IEnumerator FightTurn()
-	{
-		float fc = (float)Math.Round(currentDamage * 100f) / 100f;
-		Debug.Log("Wait Turn");
-		PlayerTurn();
-		EnemyMessageObject.SetActive(true);
-		EnemyMessText.SetText("Enemy got " + fc + " Damages");
-		yield return new WaitForSeconds(1f);
-		EnemyMessageObject.SetActive(false);
-		yield return new WaitForSeconds(2f);
-		EmenyTurn();
-		PlayerMessageObject.SetActive(true);
-		PlayerMessText.SetText("Player got " + 5 +" Damages");
-		yield return new WaitForSeconds(1f);
-		PlayerMessageObject.SetActive(false);
 		
 	}
 
@@ -189,7 +202,7 @@ public class KeyBoardInput : MonoBehaviour
 		}
 		// calculate accuracy based on character
 		accuracy = correctChar / totalChar;
-		currentDamage = accuracy * 10;
+		currentDamage = accuracy * 120;
 	}
 	
 
@@ -241,14 +254,6 @@ public class KeyBoardInput : MonoBehaviour
 		}
 
 	}
-
-	public void ShowResult(String result)
-	{
-		StringBuilder sb = new StringBuilder();
-		sb.Append(CORRECT_COLOR_OPEN_TAG);
-		sb.Append(result);
-		sb.Append(COLOR_END_TAG);
-	}
 	
 	public void SwitchScene()
 	{
@@ -258,10 +263,8 @@ public class KeyBoardInput : MonoBehaviour
 
 	IEnumerator LoadScene(int SceneIndex)
 	{
-		//play animation
-		//transition.SetTrigger("Start");
 		//wait
-		yield return new WaitForSeconds(2f);
+		yield return new WaitForSeconds(1f);
 		//load scene
 		SceneManager.LoadScene(SceneIndex);
 	}
