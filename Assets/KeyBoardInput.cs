@@ -44,8 +44,7 @@ public class KeyBoardInput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		WordGenerator.GenerateDict();
-		Debug.Log("Inputplayer Start");
+	    Debug.Log("Inputplayer Start");
 		PlayerMessageObject.SetActive(false);
 		EnemyMessageObject.SetActive(false);
     }
