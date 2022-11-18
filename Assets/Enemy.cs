@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    Animator animator;
     public float health = 100;
     public float speed = 3000;
     public int isFinish = 0;
@@ -15,6 +16,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         isFinish = PlayerPrefs.GetInt("IsFinish");
         if (isFinish == 1)
         {
@@ -35,11 +37,15 @@ public class Enemy : MonoBehaviour
         }
     }
     
-    public void TakeDamage(float damage) {
-        Health -= damage;
+    public void TakeDamage() {
+        animator.SetTrigger("DAMAGE");
     }
 
-    public void Defeated(){
+    public void Defeated() {
+        animator.SetTrigger("DEFEATED");
+    }
+
+    public void RemoveEnemy() {
         Destroy(gameObject);
     }
 
