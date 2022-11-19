@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     
     public GameObject player;
     public GameObject enemy;
+    public GameObject MessText;
     public BoxCollider2D boxCollider2D;
     
     Rigidbody2D rb;
@@ -26,9 +27,12 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public bool canMove = true;
     public float transitionTime = 1f;
+
+    private int EnemyCount = 6;
     // Start is called before the first frame update
     void Start()
     {
+        MessText.SetActive(false);
         // When starting sample scene, check if it is starting game or return from fight scene.
         // If return from fight scene, check if win or lose. if win, start player at last position and destroys enemy. lose, restart game.
         // if run, same behavior with win case.
@@ -36,20 +40,24 @@ public class PlayerController : MonoBehaviour
         {
             float pX = player.transform.position.x;
             float pY = player.transform.position.y;
-            
             pX = PlayerPrefs.GetFloat("p_x");
             pY = PlayerPrefs.GetFloat(("p_y"));
-            
-
             if (PlayerPrefs.GetInt("IsWin") == 1)
             {
                 player.transform.position = new Vector2(pX, pY);
                 DestroyEnemy();
+                EnemyCount = PlayerPrefs.GetInt("EnemyCount");
+                Debug.Log(PlayerPrefs.GetInt("EnemyCount"));
                 PlayerPrefs.SetInt("IsWin",0);
             }
             else if (PlayerPrefs.GetInt("IsRun") == 1)
             {
                 player.transform.position = new Vector2(pX, pY);
+            }
+
+            if (EnemyCount == 0)
+            {
+                MessText.SetActive(true);
             }
             Debug.Log(pX);
             Debug.Log(pY);
@@ -187,6 +195,7 @@ public class PlayerController : MonoBehaviour
         else {
             if (other.tag == "Enemy") {
                 PlayerPosSave();
+                PlayerPrefs.SetInt("EnemyCount",EnemyCount);
                 Enemy enemy = other.GetComponent<Enemy>();
                 if (enemy != null)
                 {

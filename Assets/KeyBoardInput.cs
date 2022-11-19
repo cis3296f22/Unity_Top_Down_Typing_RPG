@@ -39,7 +39,7 @@ public class KeyBoardInput : MonoBehaviour
 	private float correctChar;
 	private float accuracy;
 	private int EnemyId;
-
+	private int EnemyCount2;
 	private int size;
     // Start is called before the first frame update
     void Start()
@@ -47,6 +47,7 @@ public class KeyBoardInput : MonoBehaviour
 	    Debug.Log("Inputplayer Start");
 		PlayerMessageObject.SetActive(false);
 		EnemyMessageObject.SetActive(false);
+		EnemyCount2 = PlayerPrefs.GetInt("EnemyCount");
     }
 
     // Update is called once per frame
@@ -116,6 +117,8 @@ public class KeyBoardInput : MonoBehaviour
 				PlayerMessageObject.SetActive(true);
 				PlayerMessText.SetText("Player Win");
 				CheckName();
+				EnemyCount2--;
+				PlayerPrefs.SetInt("EnemyCount",EnemyCount2);
 				yield return new WaitForSeconds(1f);
 				PlayerMessageObject.SetActive(false);
 				SwitchScene();
