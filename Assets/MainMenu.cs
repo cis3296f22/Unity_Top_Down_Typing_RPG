@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         PlayerPrefs.SetInt("IsRun",0);
+        PlayerPrefs.DeleteAll();
     }
 
     public void PlayGame ()

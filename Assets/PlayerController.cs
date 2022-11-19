@@ -44,8 +44,7 @@ public class PlayerController : MonoBehaviour
             if (PlayerPrefs.GetInt("IsWin") == 1)
             {
                 player.transform.position = new Vector2(pX, pY);
-                //Destroy enemy based on name variable was taken in collision.
-                Destroy(GameObject.Find(PlayerPrefs.GetString("enemyName")));
+                DestroyEnemy();
                 PlayerPrefs.SetInt("IsWin",0);
             }
             else if (PlayerPrefs.GetInt("IsRun") == 1)
@@ -72,6 +71,7 @@ public class PlayerController : MonoBehaviour
         GetComponent<Collider2D>().isTrigger = true;
     }
 
+   
     
     private void Awake()
     {
@@ -123,7 +123,6 @@ public class PlayerController : MonoBehaviour
         }
         
     }
-
     private bool TryMove(Vector2 direction) {
         // Check for potential collisions
         enemySelect.SetSelect(false);
@@ -146,6 +145,34 @@ public class PlayerController : MonoBehaviour
     {
         movementInput = movementValue.Get<Vector2>();
     }
+    public void DestroyEnemy()
+    {
+        if (PlayerPrefs.GetString("Slime") == "true")
+        {
+            Destroy(GameObject.Find("Slime"));
+        }
+        if (PlayerPrefs.GetString("Slime1") == "true")
+        {
+            Destroy(GameObject.Find("Slime1"));
+        }
+        if (PlayerPrefs.GetString("Slime2") == "true")
+        {
+            Destroy(GameObject.Find("Slime2"));
+        }
+        if (PlayerPrefs.GetString("Slime3") == "true")
+        {
+            Destroy(GameObject.Find("Slime3"));
+        }
+        if (PlayerPrefs.GetString("Slime4") == "true")
+        {
+            Destroy(GameObject.Find("Slime4"));
+        }
+        if (PlayerPrefs.GetString("Slime5") == "true")
+        {
+            Destroy(GameObject.Find("Slime5"));
+        }
+    }
+
 
 
     IEnumerator OnTriggerEnter2D(Collider2D other) {
@@ -164,7 +191,7 @@ public class PlayerController : MonoBehaviour
                 if (enemy != null)
                 {
                     // get enemy name.
-                    PlayerPrefs.SetString("enemyName", enemy.name);
+                    PlayerPrefs.SetString(enemy.name,"false");
                     Debug.Log(enemy.name);
                     // lock player move
                     canMove = false;
