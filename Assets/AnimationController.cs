@@ -8,6 +8,7 @@ public class AnimationController : MonoBehaviour
 
     public float moveSpeed = 2f;
     public PlayerController playerController;
+    public Enemy enemy;
     
     private Animator animator;
     private Rigidbody2D rb;
@@ -60,6 +61,7 @@ public class AnimationController : MonoBehaviour
     
     IEnumerator EnemyEffectAttackCoroutine()
     {
+        enemy.MoveAttack();
         // change to fire ball
         animator.SetBool(FLASHLIGHT_ANIMATION, false);
         spriteRenderer.enabled = true;
