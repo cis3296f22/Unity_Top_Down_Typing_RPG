@@ -101,7 +101,7 @@ public class KeyBoardInput : MonoBehaviour
 	{
 		if (timeRemaining <= 0)
 		{
-			animationController.PlayerEffectAttach();
+			animationController.PlayerEffectAttack();
 			yield return new WaitForSeconds(2f);
 			float fc = (float)Math.Round(currentDamage * 100f) / 100f;
 			Debug.Log("Wait Turn");
@@ -128,6 +128,9 @@ public class KeyBoardInput : MonoBehaviour
 			}
 			else
 			{
+				// perform animation for enemy attach
+				animationController.EnemyEffectAttack();
+				yield return new WaitForSeconds(2f);
 				playerHealthManager.TakeDamage(5);
 				float checkPlayerHealth = playerHealthManager.healthAmount;
 				yield return new WaitForSeconds(1f);

@@ -16,6 +16,8 @@ public class AnimationController : MonoBehaviour
     private Vector3 location;
     private static string MUSHROOM_ANIMATION = "mushroom";
     private static string VOLCANO_ANIMATION = "volcano";
+    private static string FLASHLIGHT_ANIMATION = "flashlight";
+    private static string FIREEXPLOSION_ANIMATION = "fireexplosion";
 
 
     // Start is called before the first frame update
@@ -37,8 +39,9 @@ public class AnimationController : MonoBehaviour
 
     }
 
-    IEnumerator PlayerEffectAttachCoroutine()
+    IEnumerator PlayerEffectAttackCoroutine()
     {
+        animator.SetBool(FLASHLIGHT_ANIMATION, true);
         spriteRenderer.enabled = true;
         transform.localPosition = playerPosition;
         // move to new location
@@ -52,10 +55,31 @@ public class AnimationController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         spriteRenderer.enabled = false;
     }
-
-    public void PlayerEffectAttach()
+    
+    IEnumerator EnemyEffectAttackCoroutine()
     {
-        StartCoroutine(PlayerEffectAttachCoroutine());
+        // change to fire ball
+        animator.SetBool(FLASHLIGHT_ANIMATION, false);
+        spriteRenderer.enabled = true;
+        transform.localPosition = enemyPosition;
+        // move to new location
+        location = playerPosition;
+        yield return new WaitForSeconds(1f);
+        // move to player position
+        transform.localPosition = playerPosition;
+        animator.SetTrigger(FIREEXPLOSION_ANIMATION);
+        yield return new WaitForSeconds(1f);
+        spriteRenderer.enabled = false;
+    }
+
+    public void PlayerEffectAttack()
+    {
+        StartCoroutine(PlayerEffectAttackCoroutine());
+    }
+
+    public void EnemyEffectAttack()
+    {
+        StartCoroutine(EnemyEffectAttackCoroutine());
     }
 
     private void RandomPlayerAnimation()
