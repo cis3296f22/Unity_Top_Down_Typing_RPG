@@ -19,6 +19,7 @@ public class KeyBoardInput : MonoBehaviour
     public float currentDamage;
     public TMP_Text PlayerMessText;
     public GameObject PlayerMessageObject;
+    public AnimationController animationController;
     
     public TMP_Text EnemyMessText;
     public GameObject EnemyMessageObject;
@@ -99,6 +100,7 @@ public class KeyBoardInput : MonoBehaviour
 	{
 		if (timeRemaining <= 0)
 		{
+			animationController.PlayerEffectAttach();
 			float fc = (float)Math.Round(currentDamage * 100f) / 100f;
 			Debug.Log("Wait Turn");
 			enemyHealthManager.TakeDamage(currentDamage);
