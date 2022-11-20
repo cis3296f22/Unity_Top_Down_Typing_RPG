@@ -34698,6 +34698,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1864263581}
     - target: {fileID: 1095983049163675330, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
+      propertyPath: playerHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095983049163675330, guid: 7e8b3ffa9e81e3c4ba3175444a6fb00f, type: 3}
       propertyPath: boxCollider2D
       value: 
       objectReference: {fileID: 1864263583}
