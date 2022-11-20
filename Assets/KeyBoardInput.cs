@@ -40,7 +40,7 @@ public class KeyBoardInput : MonoBehaviour
 	private float correctChar;
 	private float accuracy;
 	private int EnemyId;
-
+	private int EnemyCount2;
 	private int size;
     // Start is called before the first frame update
     void Start()
@@ -48,6 +48,7 @@ public class KeyBoardInput : MonoBehaviour
 	    Debug.Log("Inputplayer Start");
 		PlayerMessageObject.SetActive(false);
 		EnemyMessageObject.SetActive(false);
+		EnemyCount2 = PlayerPrefs.GetInt("EnemyCount");
     }
 
     // Update is called once per frame
@@ -117,6 +118,9 @@ public class KeyBoardInput : MonoBehaviour
 				PlayerPrefs.SetInt("IsWin", 1);
 				PlayerMessageObject.SetActive(true);
 				PlayerMessText.SetText("Player Win");
+				CheckName();
+				EnemyCount2--;
+				PlayerPrefs.SetInt("EnemyCount",EnemyCount2);
 				yield return new WaitForSeconds(1f);
 				PlayerMessageObject.SetActive(false);
 				SwitchScene();
@@ -154,21 +158,7 @@ public class KeyBoardInput : MonoBehaviour
 			
 		}
 	}
-	// Player attack turn
-	private void PlayerTurn()
-	{
-		Debug.Log("Player Turn");
-		enemyHealthManager.TakeDamage(currentDamage);
-		
-	}
-	//Enemy attack turn.
-	private void EmenyTurn()
-	{
-		Debug.Log("Enemy Turn");
-		playerHealthManager.TakeDamage(5);
-		
-	}
-
+	
 	public void Reset()
 	{
 		sentence = "";
@@ -176,6 +166,34 @@ public class KeyBoardInput : MonoBehaviour
 		compare = new int[0];
 		ShowText();
 		timeRemaining = 10;
+	}
+
+	public void CheckName()
+	{
+		if (PlayerPrefs.GetString("Slime1") == "false")
+		{
+			PlayerPrefs.SetString("Slime1", "true");
+		}
+		if (PlayerPrefs.GetString("Slime2") == "false")
+		{
+			PlayerPrefs.SetString("Slime2", "true");
+		}
+		if (PlayerPrefs.GetString("Slime3") == "false")
+		{
+			PlayerPrefs.SetString("Slime3", "true");
+		}
+		if (PlayerPrefs.GetString("Slime4") == "false")
+		{
+			PlayerPrefs.SetString("Slime4", "true");
+		}
+		if (PlayerPrefs.GetString("Slime") == "false")
+		{
+			PlayerPrefs.SetString("Slime", "true");
+		}
+		if (PlayerPrefs.GetString("Slime5") == "false")
+		{
+			PlayerPrefs.SetString("Slime5", "true");
+		}
 	}
 
 	// Slow show button event.
@@ -203,7 +221,8 @@ public class KeyBoardInput : MonoBehaviour
 		}
 		// calculate accuracy based on character
 		accuracy = correctChar / totalChar;
-		currentDamage = accuracy * 120;
+		//currentDamage = accuracy * 120;
+		currentDamage =  110;
 	}
 	
 
