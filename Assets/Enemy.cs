@@ -12,11 +12,14 @@ public class Enemy : MonoBehaviour
 
     private float time;
     private string word;
+    private static string MOVE_ANIMATION = "MOVE";
+    private SpriteRenderer spriteRenderer;
 
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         isFinish = PlayerPrefs.GetInt("IsFinish");
         if (isFinish == 1)
         {
@@ -49,19 +52,18 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public string ShowString() {
-        time = Time.time * 1000;
-        word = "administrator";
-        return word;
+    public void MoveAttack()
+    {
+        animator.SetTrigger(MOVE_ANIMATION);
+    }
+
+    public void Hide()
+    {
+        spriteRenderer.enabled = false;
     }
 
 
-    public bool GetString(string input) {
-        float deltaTime = Time.time * 1000 - time;
-        if (deltaTime > speed) {
-            return false;
-        }
-        return word == input;
 
-    }
+
+
 }

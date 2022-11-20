@@ -19,6 +19,7 @@ public class KeyBoardInput : MonoBehaviour
     public float currentDamage;
     public TMP_Text PlayerMessText;
     public GameObject PlayerMessageObject;
+    public AnimationController animationController;
     
     public TMP_Text EnemyMessText;
     public GameObject EnemyMessageObject;
@@ -100,6 +101,8 @@ public class KeyBoardInput : MonoBehaviour
 	{
 		if (timeRemaining <= 0)
 		{
+			animationController.PlayerEffectAttack();
+			yield return new WaitForSeconds(2f);
 			float fc = (float)Math.Round(currentDamage * 100f) / 100f;
 			Debug.Log("Wait Turn");
 			enemyHealthManager.TakeDamage(currentDamage);
@@ -111,6 +114,8 @@ public class KeyBoardInput : MonoBehaviour
 			
 			if (checkEnemyHealth <= 0)
 			{
+				animationController.FireWorkEffect(true);
+				yield return new WaitForSeconds(1f);
 				//If win, save player data and return back last position with data. 
 				Debug.Log("Player win");
 				PlayerPrefs.SetInt("IsWin", 1);
@@ -125,11 +130,16 @@ public class KeyBoardInput : MonoBehaviour
 			}
 			else
 			{
+				// perform animation for enemy attach
+				animationController.EnemyEffectAttack();
+				yield return new WaitForSeconds(2f);
 				playerHealthManager.TakeDamage(5);
 				float checkPlayerHealth = playerHealthManager.healthAmount;
 				yield return new WaitForSeconds(1f);
 				if (checkPlayerHealth <= 0)
 				{
+					animationController.FireWorkEffect(false);
+					yield return new WaitForSeconds(1f);
 					//If lose, player dead, reset all player data and return back to Starting point
 					Debug.Log("Enemy win");
 					PlayerPrefs.SetInt("IsWin", 0);
@@ -219,8 +229,8 @@ public class KeyBoardInput : MonoBehaviour
 		}
 		// calculate accuracy based on character
 		accuracy = correctChar / totalChar;
-		//currentDamage = accuracy * 120;
-		currentDamage =  110;
+		currentDamage = accuracy * 120;
+		//currentDamage =  110;
 	}
 	
 
