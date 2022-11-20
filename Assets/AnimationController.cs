@@ -7,6 +7,7 @@ public class AnimationController : MonoBehaviour
 {
 
     public float moveSpeed = 2f;
+    public PlayerController playerController;
     
     private Animator animator;
     private Rigidbody2D rb;
@@ -41,6 +42,7 @@ public class AnimationController : MonoBehaviour
 
     IEnumerator PlayerEffectAttackCoroutine()
     {
+        playerController.SwordAttack();
         animator.SetBool(FLASHLIGHT_ANIMATION, true);
         spriteRenderer.enabled = true;
         transform.localPosition = playerPosition;

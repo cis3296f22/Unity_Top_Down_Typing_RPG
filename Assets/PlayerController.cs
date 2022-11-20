@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
 
     private int EnemyCount = 6;
     // Start is called before the first frame update
+
+    private static string SWORDATTACK_ANIMATION = "swordAttach";
     void Start()
     {
         MessText.SetActive(false);
@@ -207,7 +209,7 @@ public class PlayerController : MonoBehaviour
                     // stop animation moving
                     animator.SetBool("isMoving", false);
                     // swork attach
-                    animator.SetTrigger("swordAttach");
+                    animator.SetTrigger(SWORDATTACK_ANIMATION);
                     //Wait attach finished
                     yield return new WaitForSeconds(transitionTime);
                     // switch scene
@@ -232,5 +234,10 @@ public class PlayerController : MonoBehaviour
         //load scene
         SceneManager.LoadScene(SceneIndex);
     }
-    
+
+    public void SwordAttack()
+    {
+        animator.SetTrigger(SWORDATTACK_ANIMATION);
+    }
+
 }
