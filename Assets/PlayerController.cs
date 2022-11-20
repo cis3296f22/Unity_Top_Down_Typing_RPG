@@ -240,4 +240,9 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger(SWORDATTACK_ANIMATION);
     }
 
+    public void Hide()
+    {
+        spriteRenderer.enabled = false;
+    }
+
 }

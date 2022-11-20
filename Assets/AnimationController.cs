@@ -13,13 +13,14 @@ public class AnimationController : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    private Vector3 playerPosition = new Vector3(-4, -1, 1f);
-    private Vector3 enemyPosition = new Vector3(3f, 1f, 1f);
+    private Vector3 playerPosition = new Vector3(-4, -1, 2f);
+    private Vector3 enemyPosition = new Vector3(3f, 1f, 2f);
     private Vector3 location;
     private static string MUSHROOM_ANIMATION = "mushroom";
     private static string VOLCANO_ANIMATION = "volcano";
     private static string FLASHLIGHT_ANIMATION = "flashlight";
     private static string FIREEXPLOSION_ANIMATION = "fireexplosion";
+    private static string FIREWORK_ANIMATION = "firework";
 
 
     // Start is called before the first frame update
@@ -74,6 +75,36 @@ public class AnimationController : MonoBehaviour
         animator.SetTrigger(FIREEXPLOSION_ANIMATION);
         yield return new WaitForSeconds(1f);
         spriteRenderer.enabled = false;
+    }
+
+    IEnumerator FireworkCoroutine(bool win)
+    {
+
+        if (win)
+        {
+            transform.localPosition = enemyPosition;
+            location = enemyPosition;
+            enemy.Hide();
+        }
+        else
+        {
+            transform.localPosition = playerPosition;
+            location = playerPosition;
+            playerController.Hide();
+        }
+
+        
+        transform.localScale = new Vector3(5f, 5f, 0);
+        animator.SetTrigger(FIREWORK_ANIMATION);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(2f);
+        transform.localScale = new Vector3(1f, 1f, 0);
+        spriteRenderer.enabled = false;
+    }
+
+    public void FireWorkEffect(bool win)
+    {
+        StartCoroutine(FireworkCoroutine(win));
     }
 
     public void PlayerEffectAttack()

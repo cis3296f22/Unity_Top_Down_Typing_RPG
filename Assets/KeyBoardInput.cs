@@ -114,6 +114,8 @@ public class KeyBoardInput : MonoBehaviour
 			
 			if (checkEnemyHealth <= 0)
 			{
+				animationController.FireWorkEffect(true);
+				yield return new WaitForSeconds(1f);
 				//If win, save player data and return back last position with data. 
 				Debug.Log("Player win");
 				PlayerPrefs.SetInt("IsWin", 1);
@@ -136,6 +138,8 @@ public class KeyBoardInput : MonoBehaviour
 				yield return new WaitForSeconds(1f);
 				if (checkPlayerHealth <= 0)
 				{
+					animationController.FireWorkEffect(false);
+					yield return new WaitForSeconds(1f);
 					//If lose, player dead, reset all player data and return back to Starting point
 					Debug.Log("Enemy win");
 					PlayerPrefs.SetInt("IsWin", 0);
