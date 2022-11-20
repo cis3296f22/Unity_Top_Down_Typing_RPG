@@ -102,6 +102,7 @@ public class KeyBoardInput : MonoBehaviour
 		if (timeRemaining <= 0)
 		{
 			animationController.PlayerEffectAttach();
+			yield return new WaitForSeconds(2f);
 			float fc = (float)Math.Round(currentDamage * 100f) / 100f;
 			Debug.Log("Wait Turn");
 			enemyHealthManager.TakeDamage(currentDamage);
@@ -221,8 +222,8 @@ public class KeyBoardInput : MonoBehaviour
 		}
 		// calculate accuracy based on character
 		accuracy = correctChar / totalChar;
-		//currentDamage = accuracy * 120;
-		currentDamage =  110;
+		currentDamage = accuracy * 120;
+		//currentDamage =  110;
 	}
 	
 
