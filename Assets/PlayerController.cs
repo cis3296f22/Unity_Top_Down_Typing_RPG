@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     
     public GameObject player;
     public GameObject enemy;
+    public GameObject MessText;
     public BoxCollider2D boxCollider2D;
     
     Rigidbody2D rb;
@@ -26,9 +27,12 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public bool canMove = true;
     public float transitionTime = 1f;
+
+    private int EnemyCount = 6;
     // Start is called before the first frame update
     void Start()
     {
+        MessText.SetActive(false);
         // When starting sample scene, check if it is starting game or return from fight scene.
         // If return from fight scene, check if win or lose. if win, start player at last position and destroys enemy. lose, restart game.
         // if run, same behavior with win case.
@@ -36,21 +40,24 @@ public class PlayerController : MonoBehaviour
         {
             float pX = player.transform.position.x;
             float pY = player.transform.position.y;
-            
             pX = PlayerPrefs.GetFloat("p_x");
             pY = PlayerPrefs.GetFloat(("p_y"));
-            
-
             if (PlayerPrefs.GetInt("IsWin") == 1)
             {
                 player.transform.position = new Vector2(pX, pY);
-                //Destroy enemy based on name variable was taken in collision.
-                Destroy(GameObject.Find(PlayerPrefs.GetString("enemyName")));
+                DestroyEnemy();
+                EnemyCount = PlayerPrefs.GetInt("EnemyCount");
+                Debug.Log(PlayerPrefs.GetInt("EnemyCount"));
                 PlayerPrefs.SetInt("IsWin",0);
             }
             else if (PlayerPrefs.GetInt("IsRun") == 1)
             {
                 player.transform.position = new Vector2(pX, pY);
+            }
+
+            if (EnemyCount == 0)
+            {
+                MessText.SetActive(true);
             }
             Debug.Log(pX);
             Debug.Log(pY);
@@ -72,6 +79,7 @@ public class PlayerController : MonoBehaviour
         GetComponent<Collider2D>().isTrigger = true;
     }
 
+   
     
     private void Awake()
     {
@@ -123,7 +131,6 @@ public class PlayerController : MonoBehaviour
         }
         
     }
-
     private bool TryMove(Vector2 direction) {
         // Check for potential collisions
         enemySelect.SetSelect(false);
@@ -146,6 +153,34 @@ public class PlayerController : MonoBehaviour
     {
         movementInput = movementValue.Get<Vector2>();
     }
+    public void DestroyEnemy()
+    {
+        if (PlayerPrefs.GetString("Slime") == "true")
+        {
+            Destroy(GameObject.Find("Slime"));
+        }
+        if (PlayerPrefs.GetString("Slime1") == "true")
+        {
+            Destroy(GameObject.Find("Slime1"));
+        }
+        if (PlayerPrefs.GetString("Slime2") == "true")
+        {
+            Destroy(GameObject.Find("Slime2"));
+        }
+        if (PlayerPrefs.GetString("Slime3") == "true")
+        {
+            Destroy(GameObject.Find("Slime3"));
+        }
+        if (PlayerPrefs.GetString("Slime4") == "true")
+        {
+            Destroy(GameObject.Find("Slime4"));
+        }
+        if (PlayerPrefs.GetString("Slime5") == "true")
+        {
+            Destroy(GameObject.Find("Slime5"));
+        }
+    }
+
 
 
     IEnumerator OnTriggerEnter2D(Collider2D other) {
@@ -160,11 +195,12 @@ public class PlayerController : MonoBehaviour
         else {
             if (other.tag == "Enemy") {
                 PlayerPosSave();
+                PlayerPrefs.SetInt("EnemyCount",EnemyCount);
                 Enemy enemy = other.GetComponent<Enemy>();
                 if (enemy != null)
                 {
                     // get enemy name.
-                    PlayerPrefs.SetString("enemyName", enemy.name);
+                    PlayerPrefs.SetString(enemy.name,"false");
                     Debug.Log(enemy.name);
                     // lock player move
                     canMove = false;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,12 +11,18 @@ public class ButtonUI : MonoBehaviour
     public GameObject textField;
 
 	public KeyBoardInput keyboardInput;
+    public GameObject ItemField;
 
     private void Start()
     {
         Debug.Log("Fight Scene Start");
+        ItemField.SetActive(false);
     }
     
+    public void ItemHide()
+    {
+        ItemField.SetActive(false);
+    }
 
     //Creating fight scene button
     public void RunButton()
@@ -37,6 +44,8 @@ public class ButtonUI : MonoBehaviour
     public void ItemButton()
     {
         print("Open Storage");
+        ItemField.SetActive(true);
+        
     }
 
     public void DefendButton()

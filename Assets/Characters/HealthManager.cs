@@ -13,7 +13,7 @@ public class HealthManager : MonoBehaviour
     public void TakeDamage(float damage)
     {
         healthAmount -= damage;
-        healthBar.fillAmount = healthAmount / 100f; 
+        healthBar.fillAmount = healthAmount / 100f;
     }
 
     public void Heal(float healingAmount)
