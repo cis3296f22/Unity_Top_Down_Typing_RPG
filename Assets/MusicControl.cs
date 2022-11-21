@@ -6,6 +6,14 @@ using UnityEngine;
 public class MusicControl : MonoBehaviour
 {
 
+    public AudioClip click;
+    public AudioClip flash;
+    public AudioClip invalid;
+    
+
+    private bool isMute = false;
+    private float volumn = 0.25f;
+    private float effectVolumn = .75f;
     private AudioSource audioSource;
 
     private void Awake()
@@ -18,12 +26,46 @@ public class MusicControl : MonoBehaviour
     {
         if (!audioSource.isPlaying)
         {
-            audioSource.Play();
+            if (!isMute)
+            {
+                audioSource.volume = volumn;
+                audioSource.Play();
+            }
         }
     }
 
     public void StopMusic()
     {
         audioSource.Stop();
+    }
+
+    public void SetVolumn(float value)
+    {
+        audioSource.volume = value;
+        volumn = value;
+    }
+
+    public void PlayClick()
+    {
+        if (!isMute)
+        {
+            audioSource.PlayOneShot(click, effectVolumn);
+        }
+    }
+
+    public void PlayFlash()
+    {
+        if (!isMute)
+        {
+            audioSource.PlayOneShot(flash, effectVolumn);
+        }
+    }
+
+    public void PlayInvalid()
+    {
+        if (!isMute)
+        {
+            audioSource.PlayOneShot(invalid, effectVolumn);
+        }
     }
 }
