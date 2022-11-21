@@ -2219,7 +2219,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1111083881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 217b7fc0516d95d49af774a974c7a845, type: 3}
+  m_Script: {fileID: 11500000, guid: 44a85c675360f444eb63ca4d8f06a3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1144968660}
