@@ -21,7 +21,6 @@ public class AnimationController : MonoBehaviour
     private static string FLASHLIGHT_ANIMATION = "flashlight";
     private static string FIREEXPLOSION_ANIMATION = "fireexplosion";
     private static string FIREWORK_ANIMATION = "firework";
-    private static string MUSIC_CONTROLER_TAG = "Music";
     private MusicControl musicControl;
 
 
@@ -32,7 +31,7 @@ public class AnimationController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
-        musicControl = GameObject.FindGameObjectWithTag(MUSIC_CONTROLER_TAG).GetComponent<MusicControl>();
+        musicControl = GameObject.FindGameObjectWithTag(MusicControl.MUSIC_CONTROLER_TAG).GetComponent<MusicControl>();
     }
 
     // Update is called once per frame

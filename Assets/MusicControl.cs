@@ -6,6 +6,7 @@ using UnityEngine;
 public class MusicControl : MonoBehaviour
 {
 
+    public const string MUSIC_CONTROLER_TAG = "Music";
     public AudioClip click;
     public AudioClip flash;
     public AudioClip invalid;
