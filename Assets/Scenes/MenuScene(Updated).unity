@@ -2320,6 +2320,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Music
       objectReference: {fileID: 0}
+    - target: {fileID: 1428457554700973285, guid: b7c4ac48785593a4bbebae3f59a07632, type: 3}
+      propertyPath: m_TagString
+      value: Music
+      objectReference: {fileID: 0}
     - target: {fileID: 1428457554700973288, guid: b7c4ac48785593a4bbebae3f59a07632, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2363,6 +2367,34 @@ PrefabInstance:
     - target: {fileID: 1428457554700973288, guid: b7c4ac48785593a4bbebae3f59a07632, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1428457554700973290, guid: b7c4ac48785593a4bbebae3f59a07632, type: 3}
+      propertyPath: click
+      value: 
+      objectReference: {fileID: 8300000, guid: d09d70bdb435c8540b6c147b5c332800, type: 3}
+    - target: {fileID: 1428457554700973290, guid: b7c4ac48785593a4bbebae3f59a07632, type: 3}
+      propertyPath: flash
+      value: 
+      objectReference: {fileID: 8300000, guid: 94e9ad163b8ed3d4a90c204b56a37d37, type: 3}
+    - target: {fileID: 1428457554700973290, guid: b7c4ac48785593a4bbebae3f59a07632, type: 3}
+      propertyPath: invalid
+      value: 
+      objectReference: {fileID: 8300000, guid: 1e1f8175cf7dd294d8512888d160e71b, type: 3}
+    - target: {fileID: 1428457554700973291, guid: b7c4ac48785593a4bbebae3f59a07632, type: 3}
+      propertyPath: m_Volume
+      value: 0.074
+      objectReference: {fileID: 0}
+    - target: {fileID: 1428457554700973291, guid: b7c4ac48785593a4bbebae3f59a07632, type: 3}
+      propertyPath: BypassEffects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1428457554700973291, guid: b7c4ac48785593a4bbebae3f59a07632, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1428457554700973291, guid: b7c4ac48785593a4bbebae3f59a07632, type: 3}
+      propertyPath: BypassListenerEffects
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7c4ac48785593a4bbebae3f59a07632, type: 3}

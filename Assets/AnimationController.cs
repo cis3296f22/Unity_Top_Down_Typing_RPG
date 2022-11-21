@@ -21,6 +21,8 @@ public class AnimationController : MonoBehaviour
     private static string FLASHLIGHT_ANIMATION = "flashlight";
     private static string FIREEXPLOSION_ANIMATION = "fireexplosion";
     private static string FIREWORK_ANIMATION = "firework";
+    private static string MUSIC_CONTROLER_TAG = "Music";
+    private MusicControl musicControl;
 
 
     // Start is called before the first frame update
@@ -30,6 +32,7 @@ public class AnimationController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
+        musicControl = GameObject.FindGameObjectWithTag(MUSIC_CONTROLER_TAG).GetComponent<MusicControl>();
     }
 
     // Update is called once per frame
@@ -44,6 +47,7 @@ public class AnimationController : MonoBehaviour
 
     IEnumerator PlayerEffectAttackCoroutine()
     {
+        musicControl.PlayFlash();
         playerController.SwordAttack();
         animator.SetBool(FLASHLIGHT_ANIMATION, true);
         spriteRenderer.enabled = true;
@@ -54,14 +58,15 @@ public class AnimationController : MonoBehaviour
         // move to enemyPosition
         transform.localPosition = enemyPosition;
         // set random player attach animation
+        musicControl.PlayFlash();
         RandomPlayerAnimation();
-        animator.SetTrigger(MUSHROOM_ANIMATION);
         yield return new WaitForSeconds(1f);
         spriteRenderer.enabled = false;
     }
     
     IEnumerator EnemyEffectAttackCoroutine()
     {
+        musicControl.PlayFlash();
         enemy.MoveAttack();
         // change to fire ball
         animator.SetBool(FLASHLIGHT_ANIMATION, false);
@@ -72,6 +77,7 @@ public class AnimationController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         // move to player position
         transform.localPosition = playerPosition;
+        musicControl.PlayFlash();
         animator.SetTrigger(FIREEXPLOSION_ANIMATION);
         yield return new WaitForSeconds(1f);
         spriteRenderer.enabled = false;
@@ -80,6 +86,7 @@ public class AnimationController : MonoBehaviour
     IEnumerator FireworkCoroutine(bool win)
     {
 
+        musicControl.PlayFlash();
         if (win)
         {
             transform.localPosition = enemyPosition;

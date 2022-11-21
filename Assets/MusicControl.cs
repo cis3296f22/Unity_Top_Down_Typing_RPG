@@ -12,14 +12,15 @@ public class MusicControl : MonoBehaviour
     
 
     private bool isMute = false;
-    private float volumn = 0.25f;
-    private float effectVolumn = .75f;
+    private float volumn = 0.3f;
+    private float effectVolumn = 1f;
     private AudioSource audioSource;
 
     private void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = volumn;
     }
 
     public void PlayMusic()
