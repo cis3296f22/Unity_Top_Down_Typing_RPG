@@ -6,14 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private MusicControl musicControl;
     private void Start()
     {
         PlayerPrefs.SetInt("IsRun",0);
-        
+        musicControl = GameObject.FindGameObjectWithTag(MusicControl.MUSIC_CONTROLER_TAG).GetComponent<MusicControl>();
     }
 
     public void PlayGame ()
     {
+        musicControl.PlayClick();
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadScene(1);
         PlayerPrefs.DeleteAll();
@@ -22,6 +24,7 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame ()
     {
+        musicControl.PlayClick();
         Debug.Log("QUIT!");
         Application.Quit();
     }

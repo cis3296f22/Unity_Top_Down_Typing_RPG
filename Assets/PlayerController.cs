@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public GameObject enemy;
     public GameObject MessText;
     public BoxCollider2D boxCollider2D;
+    private MusicControl musicControl;
     
     Rigidbody2D rb;
     Vector2 movementInput;
@@ -72,6 +73,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        musicControl = GameObject.FindGameObjectWithTag(MusicControl.MUSIC_CONTROLER_TAG).GetComponent<MusicControl>();
     }
 
     IEnumerator toRun()
@@ -201,6 +203,7 @@ public class PlayerController : MonoBehaviour
                 Enemy enemy = other.GetComponent<Enemy>();
                 if (enemy != null)
                 {
+                    musicControl.PlayClick();
                     // get enemy name.
                     PlayerPrefs.SetString(enemy.name,"false");
                     Debug.Log(enemy.name);
