@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadScene(1);
         PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetFloat("Health",100f);
     }
 
     public void QuitGame ()

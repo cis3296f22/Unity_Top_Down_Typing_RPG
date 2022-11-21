@@ -13,7 +13,7 @@ public class KeyBoardInput : MonoBehaviour
     public TMP_Text TimerText;
     public float timeRemaining = 10;
     public HealthManager enemyHealthManager;
-    public HealthManager playerHealthManager;
+    public PHealthManager playerHealthManager;
     public ButtonUI buttonUI;
     public ParticleSystem particalSystem;
     public float currentDamage;
@@ -41,6 +41,7 @@ public class KeyBoardInput : MonoBehaviour
 	private float accuracy;
 	private int EnemyId;
 	private int EnemyCount2;
+	private float currentHealth;
 	private int size;
     // Start is called before the first frame update
     void Start()
@@ -49,6 +50,7 @@ public class KeyBoardInput : MonoBehaviour
 		PlayerMessageObject.SetActive(false);
 		EnemyMessageObject.SetActive(false);
 		EnemyCount2 = PlayerPrefs.GetInt("EnemyCount");
+		currentHealth = PlayerPrefs.GetFloat("Health");
     }
 
     // Update is called once per frame
@@ -156,8 +158,9 @@ public class KeyBoardInput : MonoBehaviour
 				{
 					PlayerMessageObject.SetActive(true);
 					PlayerMessText.SetText("Player got " + 5 + " Damages");
+					PlayerPrefs.SetFloat("Health",checkPlayerHealth);
 					yield return new WaitForSeconds(1f);
-					PlayerMessageObject.SetActive(false);
+					PlayerMessageObject.SetActive(false);	
 				}
 			}
 			
@@ -207,7 +210,7 @@ public class KeyBoardInput : MonoBehaviour
 	// Slow show button event.
 	IEnumerator ResetButton()
 	{
-		yield return new WaitForSeconds(5f);
+		yield return new WaitForSeconds(7f);
 		buttonUI.show();
 	}
 
