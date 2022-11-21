@@ -205,6 +205,22 @@ public class KeyBoardInput : MonoBehaviour
 		{
 			PlayerPrefs.SetString("Slime5", "true");
 		}
+		if (PlayerPrefs.GetString("Slime6") == "false")
+		{
+			PlayerPrefs.SetString("Slime6", "true");
+		}
+		if (PlayerPrefs.GetString("Slime7") == "false")
+		{
+			PlayerPrefs.SetString("Slime7", "true");
+		}
+		if (PlayerPrefs.GetString("Slime8") == "false")
+		{
+			PlayerPrefs.SetString("Slime8", "true");
+		}
+		if (PlayerPrefs.GetString("Slime9") == "false")
+		{
+			PlayerPrefs.SetString("Slime9", "true");
+		}
 	}
 
 	// Slow show button event.

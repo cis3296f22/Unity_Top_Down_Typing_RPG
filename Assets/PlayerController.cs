@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public bool canMove = true;
     public float transitionTime = 1f;
 
-    private int EnemyCount = 6;
+    private int EnemyCount = 10;
     // Start is called before the first frame update
 
     private static string SWORDATTACK_ANIMATION = "swordAttach";
@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
 
             if (EnemyCount == 0)
             {
+                Debug.Log(EnemyCount);
                 MessText.SetActive(true);
             }
             Debug.Log(pX);
@@ -182,6 +183,22 @@ public class PlayerController : MonoBehaviour
         if (PlayerPrefs.GetString("Slime5") == "true")
         {
             Destroy(GameObject.Find("Slime5"));
+        }
+        if (PlayerPrefs.GetString("Slime6") == "true")
+        {
+            Destroy(GameObject.Find("Slime6"));
+        }
+        if (PlayerPrefs.GetString("Slime7") == "true")
+        {
+            Destroy(GameObject.Find("Slime7"));
+        }
+        if (PlayerPrefs.GetString("Slime8") == "true")
+        {
+            Destroy(GameObject.Find("Slime8"));
+        }
+        if (PlayerPrefs.GetString("Slime9") == "true")
+        {
+            Destroy(GameObject.Find("Slime9"));
         }
     }
 
