@@ -46,8 +46,7 @@ public class KeyBoardInput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-	    Debug.Log("Inputplayer Start");
-		PlayerMessageObject.SetActive(false);
+	    PlayerMessageObject.SetActive(false);
 		EnemyMessageObject.SetActive(false);
 		EnemyCount2 = PlayerPrefs.GetInt("EnemyCount");
 		currentHealth = PlayerPrefs.GetFloat("Health");
@@ -67,7 +66,6 @@ public class KeyBoardInput : MonoBehaviour
 			}
         	else if (Input.anyKeyDown) {
             	playerInput.Append(Input.inputString);
-            	Debug.Log(playerInput.ToString());
 			}	
 			CompareInput();
 			ShowText();
