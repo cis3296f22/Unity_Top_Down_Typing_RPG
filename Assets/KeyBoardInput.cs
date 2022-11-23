@@ -29,20 +29,43 @@ public class KeyBoardInput : MonoBehaviour
 	private float accuracyWord;
 
 	private int size;
+
+	
+    private string[] words;
     // Start is called before the first frame update
     void Start()
     {
-		WordGenerator.GenerateDict();
+		int dictLen = 1090;
+		words = new string[dictLen];
+		words = WordGenerator.GenerateDict();
     }
 
     // Update is called once per frame
     void Update()
     {
 		if (playing == true) {
-			if (Input.GetKeyDown(KeyCode.Backspace)) {
+			if (Input.GetKeyDown(KeyCode.Backspace)&&playerInput.Length>0) {
 				playerInput.Length --;
 			}
         	else if (Input.anyKeyDown) {
+				if(playerInput.Length >=size/2){
+					sentence += WordGenerator.GenerateSentence(words);
+					int strlen = sentence.Length;
+					int len = 0;
+					string[] temp = sentence.Split(" ");
+					int i = 0;
+					for(; len<=strlen/2||i<temp.Length; i++){
+						len+=temp[i].Length;
+					}
+					Debug.Log("i "+ i);
+					sentence = "";
+					while(i<temp.Length){
+						sentence+= temp[i];
+					}
+					playerInput.Remove(0,len+i);
+					size = sentence.Length;
+					
+				}
             	playerInput.Append(Input.inputString);
             	Debug.Log(playerInput.ToString());
             
@@ -62,7 +85,8 @@ public class KeyBoardInput : MonoBehaviour
 
 	public void Begin() {
 		if (!playing) {
-			sentence = WordGenerator.GenerateSentence();
+			sentence = WordGenerator.GenerateSentence(words);
+			Debug.Log(words[30]);
 			playing = true;
 			size = sentence.Length;
 		}
