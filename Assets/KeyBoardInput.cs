@@ -68,7 +68,6 @@ public class KeyBoardInput : MonoBehaviour
         	else if (Input.anyKeyDown) {
             	playerInput.Append(Input.inputString);
             	Debug.Log(playerInput.ToString());
-            
 			}	
 			CompareInput();
 			ShowText();
@@ -253,7 +252,9 @@ public class KeyBoardInput : MonoBehaviour
 	}
 	
 
-	private void ShowText() {
+	private void ShowText()
+	{
+		int playerInputLength = playerInput.Length;
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < compare.Length; i++) {
 			if (compare[i] == 1) {
@@ -270,6 +271,11 @@ public class KeyBoardInput : MonoBehaviour
 				sb.Append(NOT_TYPING_COLOR_TAG);
 				sb.Append(sentence[i]);
 				sb.Append(COLOR_END_TAG);
+			}
+
+			if (i == playerInputLength - 1)
+			{
+				sb.Append("|");
 			}
 		}
 		text.text = sb.ToString();
