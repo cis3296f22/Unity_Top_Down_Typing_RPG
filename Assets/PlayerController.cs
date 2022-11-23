@@ -220,7 +220,6 @@ public class PlayerController : MonoBehaviour
                 Enemy enemy = other.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    musicControl.PlayClick();
                     // get enemy name.
                     PlayerPrefs.SetString(enemy.name,"false");
                     Debug.Log(enemy.name);
@@ -229,6 +228,7 @@ public class PlayerController : MonoBehaviour
                     // stop animation moving
                     animator.SetBool("isMoving", false);
                     // swork attach
+                    musicControl.PlayClick();
                     animator.SetTrigger(SWORDATTACK_ANIMATION);
                     //Wait attach finished
                     yield return new WaitForSeconds(transitionTime);
