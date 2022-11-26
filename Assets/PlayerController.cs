@@ -12,13 +12,8 @@ public class PlayerController : MonoBehaviour
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
     public EnemySelect enemySelect;
-    public Animator transition;
-    public Vector2 playerPosition;
-    
+
     public GameObject player;
-    public GameObject enemy;
-    public GameObject MessText;
-    public BoxCollider2D boxCollider2D;
     private MusicControl musicControl;
     
     Rigidbody2D rb;
@@ -35,7 +30,6 @@ public class PlayerController : MonoBehaviour
     private static string SWORDATTACK_ANIMATION = "swordAttach";
     void Start()
     {
-        MessText.SetActive(false);
         // When starting sample scene, check if it is starting game or return from fight scene.
         // If return from fight scene, check if win or lose. if win, start player at last position and destroys enemy. lose, restart game.
         // if run, same behavior with win case.
@@ -61,7 +55,6 @@ public class PlayerController : MonoBehaviour
             if (EnemyCount == 0)
             {
                 Debug.Log(EnemyCount);
-                MessText.SetActive(true);
             }
             Debug.Log(pX);
             Debug.Log(pY);
@@ -220,7 +213,6 @@ public class PlayerController : MonoBehaviour
                 Enemy enemy = other.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    musicControl.PlayClick();
                     // get enemy name.
                     PlayerPrefs.SetString(enemy.name,"false");
                     Debug.Log(enemy.name);
@@ -229,6 +221,7 @@ public class PlayerController : MonoBehaviour
                     // stop animation moving
                     animator.SetBool("isMoving", false);
                     // swork attach
+                    musicControl.PlayClick();
                     animator.SetTrigger(SWORDATTACK_ANIMATION);
                     //Wait attach finished
                     yield return new WaitForSeconds(transitionTime);
