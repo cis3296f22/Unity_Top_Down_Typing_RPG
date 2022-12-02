@@ -36,6 +36,7 @@ public class KeyBoardInput : MonoBehaviour
 	private string COLOR_END_TAG = "</color>";
 	private string COLOR_TIMER_TAG = "<color=#442A14>";
 	
+	private String[] sentenceList;
 	private float totalChar;
 	private float correctChar;
 	private float accuracy;
@@ -46,6 +47,7 @@ public class KeyBoardInput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		sentenceList = WordGenerator.GenerateDict();
 	    PlayerMessageObject.SetActive(false);
 		EnemyMessageObject.SetActive(false);
 		EnemyCount2 = PlayerPrefs.GetInt("EnemyCount");
@@ -64,7 +66,15 @@ public class KeyBoardInput : MonoBehaviour
 				}
 				
 			}
-        	else if (Input.anyKeyDown) {
+        	else if (Input.anyKeyDown&& playerInput.Length<size) {
+				if(playerInput.Length>((double)size*.8)){
+					//add new sentence rm half of current sentence
+					String newSent = WordGenerator.GenerateSentence(sentenceList);
+					sentence+= " "+newSent;
+					
+					size+=(newSent.Length)+1;	
+							
+				}
             	playerInput.Append(Input.inputString);
 			}	
 			CompareInput();
@@ -90,7 +100,7 @@ public class KeyBoardInput : MonoBehaviour
 
 	public void Begin() {
 		if (!playing) {
-			sentence = WordGenerator.GenerateSentence();
+			sentence = WordGenerator.GenerateSentence(sentenceList);
 			playing = true;
 			size = sentence.Length;
 		}
@@ -171,6 +181,7 @@ public class KeyBoardInput : MonoBehaviour
 	{
 		sentence = "";
 		playerInput = new StringBuilder("");
+		size = 0;
 		compare = new int[0];
 		ShowText();
 		timeRemaining = 10;
@@ -254,7 +265,7 @@ public class KeyBoardInput : MonoBehaviour
 	{
 		int playerInputLength = playerInput.Length;
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < compare.Length; i++) {
+		for (int i = 0; i < Math.Min(compare.Length,175); i++) {
 			if (compare[i] == 1) {
 				sb.Append(CORRECT_COLOR_OPEN_TAG);
 				sb.Append(sentence[i]);
