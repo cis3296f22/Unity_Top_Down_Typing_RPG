@@ -27,7 +27,6 @@ public class KeyBoardInput : MonoBehaviour
     public PlayerController playerController;
     public Enemy enemy;
     private StringBuilder playerInput = new StringBuilder("");
-	private StringBuilder playerInputTotal = new StringBuilder("");
 	private string sentence = "";
 	private bool playing = false;
 	private int[] compare;
@@ -45,7 +44,6 @@ public class KeyBoardInput : MonoBehaviour
 	private int EnemyCount2;
 	private float currentHealth;
 	private int size;
-	private String sentenceTotal;
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +63,6 @@ public class KeyBoardInput : MonoBehaviour
 				if (playerInput.Length > 0)
 				{
 					playerInput.Length --;
-					playerInputTotal.Length --;
 				}
 				
 			}
@@ -73,15 +70,12 @@ public class KeyBoardInput : MonoBehaviour
 				if(playerInput.Length>((double)size*.8)){
 					//add new sentence rm half of current sentence
 					String newSent = WordGenerator.GenerateSentence(sentenceList);
-					playerInput.Remove(0,size/2);
-					sentence.Remove(0,size/2);	
 					sentence+= " "+newSent;
-					sentenceTotal+= " "+newSent;
-					size+=(newSent.Length-(size/2))+1;	
+					
+					size+=(newSent.Length)+1;	
 							
 				}
             	playerInput.Append(Input.inputString);
-				playerInputTotal.Append(Input.inputString);
 			}	
 			CompareInput();
 			ShowText();
@@ -109,7 +103,6 @@ public class KeyBoardInput : MonoBehaviour
 			sentence = WordGenerator.GenerateSentence(sentenceList);
 			playing = true;
 			size = sentence.Length;
-			sentenceTotal = sentence;
 		}
 	}
 	// control both turn. 
@@ -187,9 +180,7 @@ public class KeyBoardInput : MonoBehaviour
 	public void Reset()
 	{
 		sentence = "";
-		sentenceTotal="";
 		playerInput = new StringBuilder("");
-		playerInputTotal = new StringBuilder("");
 		size = 0;
 		compare = new int[0];
 		ShowText();
@@ -274,7 +265,7 @@ public class KeyBoardInput : MonoBehaviour
 	{
 		int playerInputLength = playerInput.Length;
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < compare.Length; i++) {
+		for (int i = 0; i < Math.Min(compare.Length,175); i++) {
 			if (compare[i] == 1) {
 				sb.Append(CORRECT_COLOR_OPEN_TAG);
 				sb.Append(sentence[i]);

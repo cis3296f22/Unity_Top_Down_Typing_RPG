@@ -23,7 +23,7 @@ if __name__ == '__main__':
             line+='\n'
             first = ord(line.lower()[0])
             if lineLen>=40 and lineLen<=80 and first>=97 and first<=122:
-                w.write(line)
+                w.write(line.replace("“","\"").replace("”","\""))
             lineLen = 0
             line = ""
 
