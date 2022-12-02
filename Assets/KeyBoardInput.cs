@@ -47,7 +47,6 @@ public class KeyBoardInput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		sentenceList = WordGenerator.GenerateDict();
 	    PlayerMessageObject.SetActive(false);
 		EnemyMessageObject.SetActive(false);
 		EnemyCount2 = PlayerPrefs.GetInt("EnemyCount");
@@ -69,7 +68,7 @@ public class KeyBoardInput : MonoBehaviour
         	else if (Input.anyKeyDown&& playerInput.Length<size) {
 				if(playerInput.Length>((double)size*.8)){
 					//add new sentence rm half of current sentence
-					String newSent = WordGenerator.GenerateSentence(sentenceList);
+					String newSent = WordGenerator.GenerateSentence();
 					sentence+= " "+newSent;
 					
 					size+=(newSent.Length)+1;	
@@ -100,7 +99,7 @@ public class KeyBoardInput : MonoBehaviour
 
 	public void Begin() {
 		if (!playing) {
-			sentence = WordGenerator.GenerateSentence(sentenceList);
+			sentence = WordGenerator.GenerateSentence();
 			playing = true;
 			size = sentence.Length;
 		}

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.IO;
+
 public class WordGenerator : MonoBehaviour
 {
-    /** private static string[] overRide =
+    private static string[] sentences =
     {
         "they end will another much could go you day person need help this through much be same over off those with year by",
         "between way over all which from begin govern after system mean some program how through public long use should ",
@@ -15,31 +15,12 @@ public class WordGenerator : MonoBehaviour
         "show each word long most which real hold where over public off year with more that during after small way there be come public place but",
         "may late run develop need people such to person be long around back never large before home want down never state small" ,
         "most back present give what long other people right a public up right increase as for that little feel real large use",
-    z};**/
+    };
 
-    public static String[] GenerateDict()
-    {
-        int dictLen = 961;
-        string[] words = new string[dictLen];
-        System.Random rand = new System.Random();
-        string path = "Assets/BookFormatted.txt";
-        StreamReader reader = new StreamReader(path);
-        string line;
-        // Read and display lines from the file until the end of
-        // the file is reached.
-        int i = 0;
-        while ((line = reader.ReadLine()) != null)
-        {
-            words[i]= line.TrimEnd('\n');
-            i++;
-        }
-        return words;
-    }
-
-    public static string GenerateSentence(String[] sentences)
+    public static string GenerateSentence()
     {
         System.Random rand = new System.Random();
-        int index = rand.Next(960);
+        int index = rand.Next(7);
         return sentences[index];
     }
 }
