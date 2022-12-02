@@ -25,6 +25,7 @@ Tiffany has been working as a secretary for a corporation for five years. She ha
 Tiffany decided to train her typing skill one more time. This time she has to find a technique that does not take many times to complete. She decided to use her leisure time to train her typing skill. Her brother, who loves to type, suggested that she plays RPG Type Hero. This game helps her relax and learn at the same time. 
 
 **Dameon, a middle schooler learning to type for school**
+
 Dameon, a seventh grade middle schooler, is taking a typing class at school. He is struggling in class to keep up and finds the take home practice he has been given to be boring so he hasn't been practicing. Because of this his parents were looking for an alternative practice method so he could improve his grades in class, the alternative has to be both exciting and educational which is where RPG Type Hero comes in. Dameon is given the game as a gift and is excited to play the new rpg. Dameon might lose interest if he realized it was an educational game. Dameon loves RPGs he played before and grew up playing games such as Paper Mario. 
 
 **Brian, a high school student who is experienced with games**
