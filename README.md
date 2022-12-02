@@ -10,7 +10,7 @@ For people who are fans of video games and people who would like to practice the
 
 **Kareem, an elementary school student who has never played a video game before**
 
-Kareem, age 6, is a grade school student that attends a large primary school (elementary school) in the UK with over 1500 students. He’s born and raised in the UK and his parents, his father being a barber and his mother working in a daycare, are both trying their best to provide for their son and climb their way to the middle class. The father and mother are both from Iran and moved to the UK to find better and more opportunities for not just themselves but for their future kids as well.
+Kareem, age six, is a grade school student that attends a large primary school (elementary school) in the UK with over 1500 students. He’s born and raised in the UK and his parents, his father being a barber and his mother working in a daycare, are both trying their best to provide for their son and climb their way to the middle class. The father and mother are both from Iran and moved to the UK to find better and more opportunities for not just themselves but for their future kids as well.
 
 Kareem’s student life has been exceptional. He has been getting A’s in most of his classes ever since he started his school life in primary school. Even though his parents are trying their best to sustain themselves financially, they felt like it was in their best interest to reward Kareem for the astounding effort he's putting into his studies. His parents decided to buy him a video game console along with some games to play and Kareem was ecstatic since he had heard his friends talk about video games a bunch before. This will be Kareem’s first introduction to the video gaming world & industry.
 
