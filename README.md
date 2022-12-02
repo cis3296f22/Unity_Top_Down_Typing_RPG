@@ -1,4 +1,4 @@
-# Top Down Typing RPG
+# RPG Type Hero
 This application can be played on desktop/laptop devices. The game will be a 2D topdown RPG in which the user can control a player to walk around the map and interact with enemies. The user will be introduced with easier enemies where they are allowed to make mistakes and learn the mechanics of the game. As they progress by encountering more enemies, the difficulty will increase health wise. A GUI interface would be created for the user to interact with, and it would progress in a side scroller style.
 
 ![This is a screenshot.](TypingGame.png)
