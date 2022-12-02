@@ -22,8 +22,8 @@ public class WordGenerator : MonoBehaviour
         int dictLen = 961;
         string[] words = new string[dictLen];
         System.Random rand = new System.Random();
-        string path = "Assets/BookFormatted.txt";
-        StreamReader reader = new StreamReader(path);
+        String bookpath = Path.Combine(Application.streamingAssetsPath, "BookFormatted.txt");
+        StreamReader reader = new StreamReader(bookpath);
         string line;
         // Read and display lines from the file until the end of
         // the file is reached.
