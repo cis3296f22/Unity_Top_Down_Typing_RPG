@@ -27,6 +27,7 @@ public class KeyBoardInput : MonoBehaviour
     public PlayerController playerController;
     public Enemy enemy;
     private StringBuilder playerInput = new StringBuilder("");
+	private StringBuilder playerInputTotal = new StringBuilder("");
 	private string sentence = "";
 	private bool playing = false;
 	private int[] compare;
@@ -36,6 +37,7 @@ public class KeyBoardInput : MonoBehaviour
 	private string COLOR_END_TAG = "</color>";
 	private string COLOR_TIMER_TAG = "<color=#442A14>";
 	
+	private String[] sentenceList;
 	private float totalChar;
 	private float correctChar;
 	private float accuracy;
@@ -43,9 +45,11 @@ public class KeyBoardInput : MonoBehaviour
 	private int EnemyCount2;
 	private float currentHealth;
 	private int size;
+	private String sentenceTotal;
     // Start is called before the first frame update
     void Start()
     {
+		sentenceList = WordGenerator.GenerateDict();
 	    PlayerMessageObject.SetActive(false);
 		EnemyMessageObject.SetActive(false);
 		EnemyCount2 = PlayerPrefs.GetInt("EnemyCount");
@@ -61,11 +65,23 @@ public class KeyBoardInput : MonoBehaviour
 				if (playerInput.Length > 0)
 				{
 					playerInput.Length --;
+					playerInputTotal.Length --;
 				}
 				
 			}
-        	else if (Input.anyKeyDown) {
+        	else if (Input.anyKeyDown&& playerInput.Length<size) {
+				if(playerInput.Length>((double)size*.8)){
+					//add new sentence rm half of current sentence
+					String newSent = WordGenerator.GenerateSentence(sentenceList);
+					playerInput.Remove(0,size/2);
+					sentence.Remove(0,size/2);	
+					sentence+= " "+newSent;
+					sentenceTotal+= " "+newSent;
+					size+=(newSent.Length-(size/2))+1;	
+							
+				}
             	playerInput.Append(Input.inputString);
+				playerInputTotal.Append(Input.inputString);
 			}	
 			CompareInput();
 			ShowText();
@@ -90,9 +106,10 @@ public class KeyBoardInput : MonoBehaviour
 
 	public void Begin() {
 		if (!playing) {
-			sentence = WordGenerator.GenerateSentence();
+			sentence = WordGenerator.GenerateSentence(sentenceList);
 			playing = true;
 			size = sentence.Length;
+			sentenceTotal = sentence;
 		}
 	}
 	// control both turn. 
@@ -170,7 +187,10 @@ public class KeyBoardInput : MonoBehaviour
 	public void Reset()
 	{
 		sentence = "";
+		sentenceTotal="";
 		playerInput = new StringBuilder("");
+		playerInputTotal = new StringBuilder("");
+		size = 0;
 		compare = new int[0];
 		ShowText();
 		timeRemaining = 10;
